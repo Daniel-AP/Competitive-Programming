@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+void solve() {
+
+    int t; cin >> t;
+
+    while(t--) {
+
+        int n; cin >> n;
+
+        int mx(0), g(0);
+
+        for(int i = 0; i < n; i++) {
+            int x; cin >> x;
+            mx = max(x, mx);
+            g = gcd(x, g);
+        }
+
+        cout << mx/g << endl;
+
+    }
+
+}
+
+signed main() {
+
+    ios_base::sync_with_stdio(false);
+    cin.tie(0); cout.tie(0);
+
+    solve();
+
+    return 0;
+
+}
