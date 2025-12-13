@@ -9,7 +9,31 @@ using namespace std;
 
 void solve() {
 
-    
+    int n; cin >> n;
+
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    int s = 0;
+
+    for(int i = 0; i < n; i++) {
+        if(i%2) s -= a[i];
+        else s += a[i];
+    }
+
+    int maxNeg = -INF, minPos = INF, inc = n-2+n%2;
+
+    for(int i = 0; i < n; i++) {
+        if(i%2 == 0) {
+            inc = max(inc, maxNeg-(2*a[i]-i));
+            minPos = min(minPos, i+2*a[i]);
+        } else {
+            inc = max(inc, (i+2*a[i])-minPos);
+            maxNeg = max(maxNeg, 2*a[i]-i);
+        }
+    }
+
+    cout << s+inc << '\n';
     
 }
 
