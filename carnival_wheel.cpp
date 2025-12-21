@@ -9,17 +9,12 @@ using namespace std;
 
 void solve() {
 
-    int n; cin >> n;
+    int l, a, b; cin >> l >> a >> b;
 
-    if(n <= 3) {
-        if(n == 1) cout << 1 << '\n';
-        else cout << "NO SOLUTION" << '\n';
-        return;
+    for(int i = l-1; i >= 0; i--) {
+        int g = gcd(b, l);
+        if(((i-a)%g+g)%g == 0) return void(cout << i << '\n');
     }
-
-    for(int i = 2; i <= n; i += 2) cout << i << ' ';
-    for(int i = 1; i <= n; i += 2) cout << i << ' ';
-    cout << '\n';
     
 }
 
@@ -29,6 +24,7 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
+    cin >> t;
 
     while(t--) solve();
 

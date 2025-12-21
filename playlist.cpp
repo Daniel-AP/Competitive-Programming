@@ -11,13 +11,25 @@ void solve() {
 
     int n; cin >> n;
 
-    set<int> st;
+    vector<int> k(n);
+    for(int i = 0; i < n; i++) cin >> k[i];
+
+    map<int, int> mp;
+
+    int ans = 1, l = 0;
+
     for(int i = 0; i < n; i++) {
-        int x; cin >> x;
-        st.insert(x);
+        if(mp.find(k[i]) != mp.end()) {
+            ans = max(ans, i-l);
+            for(int j = l; j < mp[k[i]]; j++) mp.erase(k[j]);
+            l = mp[k[i]]+1;
+        }
+        mp[k[i]] = i;
     }
 
-    cout << st.size() << '\n';
+    ans = max(ans, (n-1)-l+1);
+
+    cout << ans << '\n';
     
 }
 

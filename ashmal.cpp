@@ -9,22 +9,21 @@ using namespace std;
 
 void solve() {
 
-    string s; cin >> s;
-    int n = s.length();
+    int n; cin >> n;
 
-    int ans = 1, cur = 1;
+    vector<string> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    vector<array<string, 2>> dp(n);
+    dp[0][0] = a[0];
+    dp[0][1] = a[0];
 
     for(int i = 1; i < n; i++) {
-        if(s[i] == s[i-1]) cur++;
-        else {
-            ans = max(ans, cur);
-            cur = 1;
-        }
+        dp[i][0] = min(a[i]+dp[i-1][0], a[i]+dp[i-1][1]);
+        dp[i][1] = min(dp[i-1][0]+a[i], dp[i-1][1]+a[i]);
     }
 
-    ans = max(ans, cur);
-
-    cout << ans << '\n';
+    cout << min(dp[n-1][0], dp[n-1][1]) << '\n';
     
 }
 
@@ -34,6 +33,7 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
+    cin >> t;
 
     while(t--) solve();
 

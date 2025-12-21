@@ -10,16 +10,11 @@ using namespace std;
 void solve() {
 
     int n; cin >> n;
+    string s; cin >> s;
 
-    if(n <= 3) {
-        if(n == 1) cout << 1 << '\n';
-        else cout << "NO SOLUTION" << '\n';
-        return;
-    }
+    int m = s.length();
 
-    for(int i = 2; i <= n; i += 2) cout << i << ' ';
-    for(int i = 1; i <= n; i += 2) cout << i << ' ';
-    cout << '\n';
+    cout << string(n-m, 'o') << s << '\n';
     
 }
 

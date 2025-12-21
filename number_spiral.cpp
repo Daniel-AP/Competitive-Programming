@@ -2,26 +2,26 @@
 using namespace std;
 
 #define int long long
+#define INF (1LL<<60)
+
+// #define MOD 1000000007
+// #define MOD 998244353
 
 void solve() {
 
-    int t; cin >> t;
+    int y, x; cin >> y >> x;
 
-    while(t--) {
+    int mx = max(y, x);
+    int ans = mx*mx;
 
-        int y, x; cin >> y >> x;
-        int spiral = max(y, x);
-        int current = spiral*spiral;
-        int prev = (spiral-1)*(spiral-1);
-
-        if(spiral%2 == 0) {
-            cout << current-x+1-spiral+y << endl;
-        } else {
-            cout << prev+x+spiral-y << endl;
-        }
-
+    if(mx%2) {
+        ans -= abs(y-1)+abs(x-mx);
+    } else {
+        ans -= abs(y-mx)+abs(x-1);
     }
 
+    cout << ans << '\n';
+    
 }
 
 signed main() {
@@ -29,7 +29,10 @@ signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
 
-    solve();
+    int t = 1;
+    cin >> t;
+
+    while(t--) solve();
 
     return 0;
 

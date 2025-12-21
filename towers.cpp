@@ -11,15 +11,22 @@ void solve() {
 
     int n; cin >> n;
 
-    if(n <= 3) {
-        if(n == 1) cout << 1 << '\n';
-        else cout << "NO SOLUTION" << '\n';
-        return;
+    vector<int> k(n);
+    for(int i = 0; i < n; i++) cin >> k[i];
+
+    multiset<int> ms;
+
+    for(int i = 0; i < n; i++) {
+        auto it = ms.upper_bound(k[i]);
+        if(it == ms.end()) {
+            ms.insert(k[i]);
+        } else {
+            ms.erase(it);
+            ms.insert(k[i]);
+        }
     }
 
-    for(int i = 2; i <= n; i += 2) cout << i << ' ';
-    for(int i = 1; i <= n; i += 2) cout << i << ' ';
-    cout << '\n';
+    cout << ms.size() << '\n';
     
 }
 

@@ -11,15 +11,22 @@ void solve() {
 
     int n; cin >> n;
 
-    if(n <= 3) {
-        if(n == 1) cout << 1 << '\n';
-        else cout << "NO SOLUTION" << '\n';
-        return;
+    vector<pair<int, int>> x(n);
+
+    for(int i = 0; i < n; i++) {
+        int m; cin >> m;
+        x[i] = { m, i };
     }
 
-    for(int i = 2; i <= n; i += 2) cout << i << ' ';
-    for(int i = 1; i <= n; i += 2) cout << i << ' ';
-    cout << '\n';
+    sort(x.begin(), x.end());
+
+    int ans = 1;
+
+    for(int i = 1; i < n; i++) {
+        if(x[i-1].second > x[i].second) ans++;
+    }
+
+    cout << ans << '\n';
     
 }
 

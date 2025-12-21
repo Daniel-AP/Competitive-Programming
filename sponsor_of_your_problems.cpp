@@ -1,38 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+#define int long long
+#define INF (1LL<<60)
 
-    int t;
-    cin >> t;
-    while(t--){
-        string l, r;
-        cin >> l >> r;
-        int n = l.size();
+// #define MOD 1000000007
+// #define MOD 998244353
 
-        // 1) find common‐prefix length cp
-        int cp = 0;
-        while(cp < n && l[cp] == r[cp]) 
-            cp++;
+void solve() {
 
-        // 2) if l == r, x must equal them → f(l,x)=n and f(x,r)=n
-        if(cp == n){
-            cout << 2*n << "\n";
-            continue;
-        }
+    string l, r; cin >> l >> r;
+    int n = l.length();
 
-        // 3) at the first differing digit position k = cp,
-        //    if r[k] - l[k] == 1 then any x must choose either l[k] or r[k],
-        //    which gives exactly one extra match in f(l,x)+f(x,r);
-        //    otherwise (gap ≥ 2) you can pick a middle digit, avoiding both.
-        int extra = (r[cp] - l[cp] == 1 ? 1 : 0);
+    int i = 0, ans = 0;
 
-        // 4) each of the cp prefix digits contributes 1 to f(l,x)
-        //    and 1 to f(x,r), i.e. 2 total per prefix position.
-        int ans = 2*cp + extra;
-        cout << ans << "\n";
+    while(i < n && l[i] == r[i]) i++, ans += 2;
+    if(i < n && r[i]-l[i] == 1) {
+        i++;
+        ans++;
+        while(i < n && r[i] == '0' && l[i] == '9') i++, ans++;
     }
+
+    cout << ans << '\n';
+    
+}
+
+signed main() {
+
+    ios_base::sync_with_stdio(false);
+    cin.tie(0); cout.tie(0);
+
+    int t = 1;
+    cin >> t;
+
+    while(t--) solve();
+
     return 0;
+
 }

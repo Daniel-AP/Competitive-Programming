@@ -47,6 +47,22 @@ int comb(int n, int k) {
 
 }
 
+int combNoMod(int n, int k) {
+
+    if(k < 0 || k > n) return 0;
+    if(k > n/2) k = n-k;
+
+    int ans = 1;
+
+    for(int i = 1; i <= k; i++) {
+        ans *= (n-i+1);
+        ans /= i;
+    }
+
+    return ans;
+
+}
+
 void solve() {
 
     precomp_factorials();

@@ -11,13 +11,26 @@ void solve() {
 
     int n; cin >> n;
 
-    set<int> st;
+    vector<int> x(n);
+    for(int i = 0; i < n; i++) cin >> x[i];
+
+    map<int, int> mp;
+
+    int ans = 0, l = 0;
+
     for(int i = 0; i < n; i++) {
-        int x; cin >> x;
-        st.insert(x);
+        
+        if(mp.find(x[i]) != mp.end()) {
+            for(int j = l; j < mp[x[i]]; j++) mp.erase(x[j]);
+            l = mp[x[i]]+1;
+        }
+
+        mp[x[i]] = i;
+        ans += i-l+1;
+
     }
 
-    cout << st.size() << '\n';
+    cout << ans << '\n';
     
 }
 

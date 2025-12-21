@@ -2,6 +2,10 @@
 using namespace std;
 
 #define int long long
+#define INF (1LL<<60)
+
+// #define MOD 1000000007
+// #define MOD 998244353
 
 void solve() {
 
@@ -10,28 +14,25 @@ void solve() {
     vector<int> a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
 
-    vector<int> b(m);
-    for(int i = 0; i < m; i++) cin >> b[i];
-
-    sort(a.begin(), a.end());
-    sort(b.begin(), b.end());
-
-    int i = 0, j = 0;
-    int cnt = 0;
-
-    while(i < n && j < m) {
-        if(abs(a[i]-b[j]) <= k) {
-            cnt++;
-            i++;
-            j++;
-        } else if(b[j] < a[i]-k) {
-            j++;
-        } else {
-            i++;
-        }
+    multiset<int> b;
+    for(int i = 0; i < m; i++) {
+        int x; cin >> x;
+        b.insert(x);
     }
 
-    cout << cnt << endl;
+    sort(a.begin(), a.end());
+
+    int ans = 0;
+
+    for(int i = 0; i < n; i++) {
+        auto it = b.lower_bound(a[i]-k);
+        if(it == b.end()) continue;
+        if(*it > a[i]+k) continue;
+        ans++;
+        b.erase(it);
+    }
+
+    cout << ans << '\n';
     
 }
 
@@ -40,7 +41,7 @@ signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
 
-    int t; t = 1;
+    int t = 1;
 
     while(t--) solve();
 

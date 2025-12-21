@@ -2,22 +2,23 @@
 using namespace std;
 
 #define int long long
+#define INF (1LL<<60)
+
+// #define MOD 1000000007
+// #define MOD 998244353
 
 void solve() {
 
     int n; cin >> n;
 
-    cout << n << " ";
-
     while(n != 1) {
-
-        if(n%2 == 0) n /= 2;
-        else n = n*3+1;
-
-        cout << n << " ";
-
+        cout << n << ' ';
+        if(n%2) n = 3*n+1;
+        else n /= 2;
     }
 
+    cout << 1 << '\n';
+    
 }
 
 signed main() {
@@ -25,7 +26,9 @@ signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
 
-    solve();
+    int t = 1;
+
+    while(t--) solve();
 
     return 0;
 
