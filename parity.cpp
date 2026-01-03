@@ -8,9 +8,14 @@ using namespace std;
 // #define MOD 1000000007
 // #define MOD 998244353
 
-void solve() {
+void solve(int n) {
 
-    // always check brute force solution and check its actual complexity
+    bitset<64> bs(n);
+    string s = bs.to_string();
+
+    s.erase(0, s.find('1'));
+
+    cout << "The parity of " << s << " is " << bs.count() << " (mod 2)." << '\n';
     
 }
 
@@ -19,10 +24,11 @@ signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
 
-    int t = 1;
-    cin >> t;
-
-    while(t--) solve();
+    while(true) {
+        int n; cin >> n;
+        if(n == 0) break;
+        solve(n);
+    }
 
     return 0;
 

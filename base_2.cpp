@@ -10,7 +10,19 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n; cin >> n;
+    int m = abs(n);
+
+    if(n < 0) {
+        for(int i = 0; i < 32; i++) {
+            if((m&(1LL<<i))) cout << "11";
+            else cout << "00";
+        }
+    } else {
+        
+    }
+
+    cout << '\n';
     
 }
 

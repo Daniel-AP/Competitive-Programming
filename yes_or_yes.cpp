@@ -10,7 +10,11 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    string s; cin >> s;
+    
+    int cnt = count(s.begin(), s.end(), 'Y');
+
+    cout << (cnt <= 1 ? "YES" : "NO") << '\n';
     
 }
 

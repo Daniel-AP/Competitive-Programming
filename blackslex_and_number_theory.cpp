@@ -2,7 +2,6 @@
 using namespace std;
 
 #define int long long
-#define all(n) begin(n), end(n)
 #define INF (1LL<<60)
 
 // #define MOD 1000000007
@@ -10,7 +9,20 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n; cin >> n;
+
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    sort(a.begin(), a.end());
+
+    int ans = a[0], mn = INF;
+
+    for(int i = 1; i < n; i++) {
+        mn = min(mn, abs(a[i]-a[0]));
+    }
+
+    cout << max(ans, mn) << '\n';
     
 }
 

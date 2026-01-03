@@ -10,7 +10,23 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n; cin >> n;
+    string t; cin >> t;
+
+    int i = 0;
+    string s;
+    
+    while(i < n) {
+        if(i+2 < n && t[i+2] == '0' && (i+3 >= n || t[i+3] != '0')) {
+            s += ((t[i]-'0')*10+(t[i+1]-'0'))+'a'-1;
+            i += 3;
+        } else {
+            s += (t[i]-'0')+'a'-1;
+            i++;
+        }
+    }
+
+    cout << s << '\n';
     
 }
 

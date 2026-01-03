@@ -10,7 +10,13 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    vector<int> abc(3);
+    cin >> abc[0] >> abc[1] >> abc[2];
+
+    sort(abc.begin(), abc.end());
+
+    if(abc[0]+abc[1] == abc[2]) cout << "YES" << '\n';
+    else cout << "NO" << '\n';
     
 }
 

@@ -12,19 +12,21 @@ void solve() {
 
     int n; cin >> n;
 
-    vector<int> cnt(n+1);
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
 
-    for(int i = 0; i < n; i++) {
-        int x; cin >> x;
-        cnt[x]++;
+    sort(a.begin(), a.end());
+
+    int cnt = count(a.begin(), a.end(), a[0]);
+
+    if(cnt == 1) return void(cout << "YES" << '\n');
+
+    for(int i = 1; i < n; i++) {
+        if(a[i]%a[0] == 0) continue;
+        return void(cout << "YES" << '\n');
     }
 
-    for(int i = 1; i <= n; i++) {
-        if(cnt[i] == 1) return void(cout << "No" << '\n');
-        if(cnt[i] > 2 && i+1 <= n) cnt[i+1] += cnt[i]-2, cnt[i] = 2;
-    }
-
-    cout << "Yes" << '\n';
+    cout << "NO" << '\n';
     
 }
 

@@ -10,7 +10,20 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n; cin >> n;
+    string s1, s2; cin >> s1 >> s2;
+
+    vector<int> v1, v2;
+
+    for(int i = 0; i < n; i++) {
+        if(s1[i] == 'R') v1.push_back(i);
+    }
+    for(int i = 0; i < n; i++) {
+        if(s2[i] == 'R') v2.push_back(i);
+    }
+
+    if(v1 == v2) cout << "YES" << '\n';
+    else cout << "NO" << '\n';
     
 }
 

@@ -2,7 +2,6 @@
 using namespace std;
 
 #define int long long
-#define all(n) begin(n), end(n)
 #define INF (1LL<<60)
 
 // #define MOD 1000000007
@@ -10,7 +9,9 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int k, x; cin >> k >> x;
+
+    cout << 1+x*k << '\n';
     
 }
 

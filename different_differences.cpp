@@ -10,7 +10,20 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int k, n; cin >> k >> n;
+
+    vector<int> ans = {1};
+    int d = 1;
+
+    for(int i = 0; i < k-1; i++) {
+        int has = n-(ans.back()+d);
+        if(ans.size()+has+1 >= k) ans.push_back(ans.back()+d);
+        else ans.push_back(ans.back()+1);
+        d++;
+    }
+
+    for(int x: ans) cout << x << ' ';
+    cout << '\n';
     
 }
 

@@ -10,7 +10,22 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n; cin >> n;
+
+    vector<int> cnt(n+1);
+
+    for(int i = 0; i < n; i++) {
+        int x; cin >> x;
+        cnt[x]++;
+    }
+
+    int ans = 0;
+
+    for(int i = 1; i <= n; i++) {
+        ans += cnt[i]/2;
+    }
+
+    cout << ans << '\n';
     
 }
 

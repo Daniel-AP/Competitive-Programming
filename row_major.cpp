@@ -10,8 +10,17 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n; cin >> n;
+    int t = 1;
+
+    while(n%t == 0) t++;
+
+    for(int i = 0; i < n; i++) {
+        cout << char('a'+i%t); 
+    }
     
+    cout << '\n';
+
 }
 
 signed main() {

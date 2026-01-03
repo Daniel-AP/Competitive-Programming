@@ -10,7 +10,21 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n; cin >> n;
+
+    vector<int> x(n-1);
+    for(int i = 0; i < n-1; i++) cin >> x[i];
+
+    int cur = 0, b = 1e8;
+
+    cout << b << ' ';
+
+    for(int i = 0; i < n-1; i++) {
+        cur += x[i];
+        cout << b+cur << ' ';
+    }
+
+    cout << '\n';
     
 }
 

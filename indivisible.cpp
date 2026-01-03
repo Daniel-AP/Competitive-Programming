@@ -10,8 +10,20 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
-    
+    int n; cin >> n;
+
+    if(n == 1) return void(cout << 1 << '\n');
+    if(n%2) return void(cout << -1 << '\n');
+
+    vector<int> ans(n);
+    iota(ans.begin(), ans.end(), 1);
+
+    for(int i = 2; i <= n; i += 2) {
+        cout << i << ' ' << i-1 << ' ';
+    }
+
+    cout << '\n';
+
 }
 
 signed main() {

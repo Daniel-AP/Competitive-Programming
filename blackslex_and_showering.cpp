@@ -2,7 +2,6 @@
 using namespace std;
 
 #define int long long
-#define all(n) begin(n), end(n)
 #define INF (1LL<<60)
 
 // #define MOD 1000000007
@@ -12,19 +11,26 @@ void solve() {
 
     int n; cin >> n;
 
-    vector<int> cnt(n+1);
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    int mx = -INF;
 
     for(int i = 0; i < n; i++) {
-        int x; cin >> x;
-        cnt[x]++;
+        int cur = 0;
+        if(i > 0) cur += abs(a[i-1]-a[i]);
+        if(i+1 < n) cur += abs(a[i]-a[i+1]);
+        if(i > 0 && i+1 < n) cur -= abs(a[i-1]-a[i+1]);
+        mx = max(mx, cur);
     }
 
-    for(int i = 1; i <= n; i++) {
-        if(cnt[i] == 1) return void(cout << "No" << '\n');
-        if(cnt[i] > 2 && i+1 <= n) cnt[i+1] += cnt[i]-2, cnt[i] = 2;
+    int s = 0;
+
+    for(int i = 0; i+1 < n; i++) {
+        s += abs(a[i]-a[i+1]);
     }
 
-    cout << "Yes" << '\n';
+    cout << s-mx << '\n';
     
 }
 

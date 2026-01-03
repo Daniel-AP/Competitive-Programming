@@ -10,7 +10,17 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n, m, k; cin >> n >> m >> k;
+    
+    if(k == 1) {
+        cout << 1 << '\n';
+    } else if(k == 2) {
+        cout << min(n, m)+max(m/n-1, 0LL) << '\n';
+    } else if(k == 3) {
+        cout << max(m-n+1, 0LL)-m/n << '\n';
+    } else {
+        cout << 0 << '\n';
+    }
     
 }
 

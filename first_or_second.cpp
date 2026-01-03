@@ -12,19 +12,29 @@ void solve() {
 
     int n; cin >> n;
 
-    vector<int> cnt(n+1);
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
 
-    for(int i = 0; i < n; i++) {
-        int x; cin >> x;
-        cnt[x]++;
+    vector<int> px(n+1);
+    partial_sum(a.begin(), a.end(), px.begin()+1);
+
+    vector<int> b(n+1);
+    b[1] = 0;
+    
+    int mx = 2*a[0];
+
+    for(int i = 2; i <= n; i++) {
+        b[i] = mx-px[i-1];
+        mx = max(mx, b[i]+a[i-1]+px[i]);
     }
+
+    int ans = -INF;
 
     for(int i = 1; i <= n; i++) {
-        if(cnt[i] == 1) return void(cout << "No" << '\n');
-        if(cnt[i] > 2 && i+1 <= n) cnt[i+1] += cnt[i]-2, cnt[i] = 2;
+        ans = max(ans, b[i]-(px[n]-px[i]));
     }
 
-    cout << "Yes" << '\n';
+    cout << ans << '\n';
     
 }
 
