@@ -10,30 +10,22 @@ using namespace std;
 
 void solve() {
 
-    int n, k; cin >> n >> k;
+    int n; cin >> n;
 
-    vector<double> a(n);
+    vector<int> a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
 
-    double l = 1e-7, r = 1e7, mid, ans = 0;
+    bool fl = false;
 
-    while(r-l > 1e-7) {
-
-        mid = l+(r-l)/2;
-
-        int cnt = 0;
-        for(int i = 0; i < n; i++) cnt += floor(a[i]/mid);
-
-        if(cnt >= k) {
-            ans = mid;
-            l = mid;
-        } else {
-            r = mid;
+    for(int i = 0; i+1 < n; i++) {
+        if(a[i+1] < a[i]) {
+            fl = true;
+        } else if(a[i+1] > a[i] && fl) {
+            return void(cout << "NO" << '\n');
         }
-
     }
 
-    cout << fixed << setprecision(10) << ans << '\n';
+    cout << "YES" << '\n';
     
 }
 
@@ -43,6 +35,7 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
+    cin >> t;
 
     while(t--) solve();
 

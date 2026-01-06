@@ -12,15 +12,19 @@ void solve() {
 
     int n; cin >> n;
 
-    vector<int> dp(n+1, INF);
-    dp[0] = 0;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
 
-    for(int i = 1; i <= n; i++) {
-        int j = i;
-        while(j) dp[i] = min(dp[i], 1+dp[i-j%10]), j /= 10;
+    int l = 0, r = 1e9;
+
+    for(int i = 0; i+1 < n; i++) {
+        if(a[i] == a[i+1]) continue;
+        if(a[i] < a[i+1]) r = min(r, (a[i]+a[i+1])/2);
+        else l = max(l, (a[i]+a[i+1]+1)/2);
     }
 
-    cout << dp[n] << '\n';
+    if(l > r) cout << -1 << '\n';
+    else cout << l << '\n';
     
 }
 
@@ -30,6 +34,7 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
+    cin >> t;
 
     while(t--) solve();
 

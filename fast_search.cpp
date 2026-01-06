@@ -10,30 +10,25 @@ using namespace std;
 
 void solve() {
 
-    int n, k; cin >> n >> k;
+    int n; cin >> n;
 
-    vector<double> a(n);
+    vector<int> a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
 
-    double l = 1e-7, r = 1e7, mid, ans = 0;
+    sort(all(a));
 
-    while(r-l > 1e-7) {
+    int k; cin >> k;
 
-        mid = l+(r-l)/2;
+    while(k--) {
+        
+        int l, r; cin >> l >> r;
 
-        int cnt = 0;
-        for(int i = 0; i < n; i++) cnt += floor(a[i]/mid);
+        int i = lower_bound(all(a), l)-a.begin();
+        int j = upper_bound(all(a), r)-a.begin();
 
-        if(cnt >= k) {
-            ans = mid;
-            l = mid;
-        } else {
-            r = mid;
-        }
+        cout << j-i << ' ';
 
     }
-
-    cout << fixed << setprecision(10) << ans << '\n';
     
 }
 

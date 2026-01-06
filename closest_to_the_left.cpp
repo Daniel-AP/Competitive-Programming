@@ -12,28 +12,14 @@ void solve() {
 
     int n, k; cin >> n >> k;
 
-    vector<double> a(n);
+    vector<int> a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
 
-    double l = 1e-7, r = 1e7, mid, ans = 0;
-
-    while(r-l > 1e-7) {
-
-        mid = l+(r-l)/2;
-
-        int cnt = 0;
-        for(int i = 0; i < n; i++) cnt += floor(a[i]/mid);
-
-        if(cnt >= k) {
-            ans = mid;
-            l = mid;
-        } else {
-            r = mid;
-        }
-
+    for(int i = 0; i < k; i++) {
+        int x; cin >> x;
+        int j = upper_bound(all(a), x)-a.begin();
+        cout << j << '\n';
     }
-
-    cout << fixed << setprecision(10) << ans << '\n';
     
 }
 

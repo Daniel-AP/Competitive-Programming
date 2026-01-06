@@ -11,16 +11,11 @@ using namespace std;
 void solve() {
 
     int n; cin >> n;
+    string s; cin >> s;
 
-    vector<int> dp(n+1, INF);
-    dp[0] = 0;
+    if(s.find("2026") != s.npos || s.find("2025") == s.npos) return void(cout << 0 << '\n');
 
-    for(int i = 1; i <= n; i++) {
-        int j = i;
-        while(j) dp[i] = min(dp[i], 1+dp[i-j%10]), j /= 10;
-    }
-
-    cout << dp[n] << '\n';
+    cout << 1 << '\n';
     
 }
 
@@ -30,6 +25,7 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
+    cin >> t;
 
     while(t--) solve();
 

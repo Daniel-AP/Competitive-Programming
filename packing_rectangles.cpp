@@ -10,30 +10,31 @@ using namespace std;
 
 void solve() {
 
-    int n, k; cin >> n >> k;
+    int w, h, n; cin >> w >> h >> n;
+    int l = 1, r = 1e18+5, ans, mid;
 
-    vector<double> a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-
-    double l = 1e-7, r = 1e7, mid, ans = 0;
-
-    while(r-l > 1e-7) {
+    while(l <= r) {
 
         mid = l+(r-l)/2;
+        int m = mid/w;
 
-        int cnt = 0;
-        for(int i = 0; i < n; i++) cnt += floor(a[i]/mid);
+        if(m == 0) {
+            l = mid+1;
+            continue;
+        }
 
-        if(cnt >= k) {
+        int need = (n+m-1)/m;
+
+        if(need <= mid/h) {
             ans = mid;
-            l = mid;
+            r = mid-1;
         } else {
-            r = mid;
+            l = mid+1;
         }
 
     }
 
-    cout << fixed << setprecision(10) << ans << '\n';
+    cout << ans << '\n';
     
 }
 

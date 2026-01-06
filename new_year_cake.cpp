@@ -10,30 +10,27 @@ using namespace std;
 
 void solve() {
 
-    int n, x, y; cin >> n >> x >> y;
-    int l = min(x, y), r = 1e18, mid, ans;
+    int a, b; cin >> a >> b;
 
-    while(l <= r) {
+    int ans = 1;
+    int cnt0 = 1, cnt1 = 0, cur = 2;
 
-        mid = l+(r-l)/2;
-        int m = mid;
-
-        int cnt = 1;
-        m -= min(x, y);
-
-        cnt += m/x+m/y;
-
-        if(cnt >= n) {
-            ans = mid;
-            r = mid-1;
+    for(int i = 2;; i++) {
+        if(i%2 == 0) {
+            cnt1 += cur;
         } else {
-            l = mid+1;
+            cnt0 += cur;
         }
-
+        if((a >= cnt0 && b >= cnt1) || (b >= cnt0 && a >= cnt1)) {
+            ans++;
+        } else {
+            break;
+        }
+        cur *= 2;
     }
-
-    cout << ans << '\n';
     
+    cout << ans << '\n';
+
 }
 
 signed main() {
@@ -42,6 +39,7 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
+    cin >> t;
 
     while(t--) solve();
 
