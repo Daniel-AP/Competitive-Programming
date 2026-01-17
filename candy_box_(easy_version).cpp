@@ -10,13 +10,24 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n; cin >> n;
 
-    // think about lower bounds and upper bounds, probably these can be achieved
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
 
-    // find something that never/always changes after an operation
+    vector<int> cnt(n+1);
+    for(int i = 0; i < n; i++) cnt[a[i]]++;
 
-    // dont forget about binary search
+    sort(all(cnt));
+
+    for(int i = n-1; i >= 1; i--) {
+        cnt[i] = min(cnt[i], cnt[i+1]-1);
+    }
+
+    int ans = 0;
+    for(int i = 0; i <= n; i++) ans += max(cnt[i], 0LL);
+
+    cout << ans << '\n';
     
 }
 

@@ -10,28 +10,16 @@ using namespace std;
 
 void solve() {
 
-    int n, m; cin >> n >> m;
+    set<int> s;
 
-    vector<int> a(n);
-
-    a[0] = 1;
-    for(int i = 1; i < n; i++) cin >> a[i];
-
-    multiset<int> b;
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < 4; i++) {
         int x; cin >> x;
-        b.insert(x);
+        s.insert(x);
     }
 
-    int ans = 0;
-
-    for(int i = 0; i < n; i++) {
-        auto it = b.upper_bound(a[i]);
-        if(it == b.end()) ans++;
-        else b.erase(it);
+    for(int i = 1; i <= 5; i++) {
+        if(s.find(i) == s.end()) return void(cout << i << '\n');
     }
-
-    cout << ans << '\n';
     
 }
 
@@ -41,7 +29,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

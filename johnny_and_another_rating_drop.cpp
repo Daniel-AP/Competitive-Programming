@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int long long
+#define int unsigned long long
 #define all(x) (x).begin(), (x).end()
 #define INF (1LL<<60)
 
@@ -10,13 +10,15 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n; cin >> n;
+    int ans = 0, cur = 2;
 
-    // think about lower bounds and upper bounds, probably these can be achieved
+    while(n >= cur) {
+        ans += n/cur;
+        cur *= 2;
+    }
 
-    // find something that never/always changes after an operation
-
-    // dont forget about binary search
+    cout << ans+n << '\n';
     
 }
 

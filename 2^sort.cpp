@@ -10,25 +10,23 @@ using namespace std;
 
 void solve() {
 
-    int n, m; cin >> n >> m;
+    int n, k; cin >> n >> k;
 
     vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
 
-    a[0] = 1;
-    for(int i = 1; i < n; i++) cin >> a[i];
-
-    multiset<int> b;
-    for(int i = 0; i < n; i++) {
-        int x; cin >> x;
-        b.insert(x);
+    vector<int> no(n);
+    for(int i = 0; i+1 < n; i++) {
+        no[i+1] = (a[i]>=2*a[i+1]);
     }
+
+    vector<int> px(n);
+    partial_sum(no.begin()+1, no.end(), px.begin()+1);
 
     int ans = 0;
 
-    for(int i = 0; i < n; i++) {
-        auto it = b.upper_bound(a[i]);
-        if(it == b.end()) ans++;
-        else b.erase(it);
+    for(int i = k; i < n; i++) {
+        ans += (px[i]-px[i-k] == 0);
     }
 
     cout << ans << '\n';

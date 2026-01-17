@@ -8,21 +8,26 @@ using namespace std;
 // #define MOD 1000000007
 // #define MOD 998244353
 
-void solve() {
+void solve(int t) {
 
     int n; cin >> n;
-    int m = abs(n);
+    string ans;
 
-    if(n < 0) {
-        for(int i = 0; i < 32; i++) {
-            if((m&(1LL<<i))) cout << "11";
-            else cout << "00";
+    while(n >= 2 || n < 0) {
+        int r = (n%(-2)-2)%(-2);
+        if(n > 0) n = -(n+1)/2;
+        else n /= -2;
+        if(r < 0) {
+            n++;
+            r += 2;
         }
-    } else {
-        
+        ans += char(r+'0');
     }
 
-    cout << '\n';
+    reverse(all(ans));
+    ans = char(n+'0')+ans;
+
+    cout << "Case #" << t << ": " << ans << '\n';
     
 }
 
@@ -31,10 +36,9 @@ signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
 
-    int t = 1;
-    cin >> t;
+    int t; cin >> t;
 
-    while(t--) solve();
+    for(int i = 1; i <= t; i++) solve(i);
 
     return 0;
 

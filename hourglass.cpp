@@ -2,7 +2,7 @@
 using namespace std;
 
 #define int long long
-#define all(x) (x).begin(), (x).end()
+#define all(n) begin(n), end(n)
 #define INF (1LL<<60)
 
 // #define MOD 1000000007
@@ -10,13 +10,16 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int s, k, m; cin >> s >> k >> m;
+    int q = min(s, k);
 
-    // think about lower bounds and upper bounds, probably these can be achieved
+    if(s <= k) {
+        cout << max(s-m+(m/k)*k, 0LL);
+    } else {
+        cout << max(q-m+(m/k)*k, 0LL);
+    }
 
-    // find something that never/always changes after an operation
-
-    // dont forget about binary search
+    cout << '\n';
     
 }
 

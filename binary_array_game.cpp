@@ -10,28 +10,20 @@ using namespace std;
 
 void solve() {
 
-    int n, m; cin >> n >> m;
+    int n; cin >> n;
 
     vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
 
-    a[0] = 1;
-    for(int i = 1; i < n; i++) cin >> a[i];
+    if(count(all(a), 1) == n) return void(cout << "Alice" << '\n');
 
-    multiset<int> b;
-    for(int i = 0; i < n; i++) {
-        int x; cin >> x;
-        b.insert(x);
-    }
+    int l = 0, r = n-1;
 
-    int ans = 0;
+    while(l < n && a[l] == 1) l++;
+    while(r >= 0 && a[r] == 1) r--;
 
-    for(int i = 0; i < n; i++) {
-        auto it = b.upper_bound(a[i]);
-        if(it == b.end()) ans++;
-        else b.erase(it);
-    }
-
-    cout << ans << '\n';
+    if(r-l+1 == n) cout << "Bob" << '\n';
+    else cout << "Alice" << '\n';
     
 }
 

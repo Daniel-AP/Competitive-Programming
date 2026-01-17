@@ -8,27 +8,28 @@ using namespace std;
 // #define MOD 1000000007
 // #define MOD 998244353
 
+bool can(int m, int a, int b) {
+
+    for(int i = 1; i <= m; i *= a) {
+        for(int j = 1; j <= m; j *= b) {
+            if(i*j == m) return true;
+        }
+    }
+
+    return false;
+
+}
+
 void solve() {
 
-    int n, m; cin >> n >> m;
-
-    vector<int> a(n);
-
-    a[0] = 1;
-    for(int i = 1; i < n; i++) cin >> a[i];
-
-    multiset<int> b;
-    for(int i = 0; i < n; i++) {
-        int x; cin >> x;
-        b.insert(x);
-    }
+    int a, b, l; cin >> a >> b >> l;
 
     int ans = 0;
 
-    for(int i = 0; i < n; i++) {
-        auto it = b.upper_bound(a[i]);
-        if(it == b.end()) ans++;
-        else b.erase(it);
+    for(int i = 1; i*i <= l; i++) {
+        if(l%i != 0) continue;
+        ans += can(l/i, a, b);
+        if(l/i != i) ans += can(i, a, b);
     }
 
     cout << ans << '\n';

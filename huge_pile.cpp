@@ -10,28 +10,24 @@ using namespace std;
 
 void solve() {
 
-    int n, m; cin >> n >> m;
-
-    vector<int> a(n);
-
-    a[0] = 1;
-    for(int i = 1; i < n; i++) cin >> a[i];
-
-    multiset<int> b;
-    for(int i = 0; i < n; i++) {
-        int x; cin >> x;
-        b.insert(x);
-    }
-
+    int n, k; cin >> n >> k;
     int ans = 0;
 
-    for(int i = 0; i < n; i++) {
-        auto it = b.upper_bound(a[i]);
-        if(it == b.end()) ans++;
-        else b.erase(it);
+    set<int> can{n};
+
+    while(true) {
+        if(can.find(k) != can.end()) return void(cout << ans << '\n');
+        set<int> can2;
+        for(int x: can) {
+            can2.insert(x/2);
+            can2.insert((x+1)/2);
+        }
+        if(can == can2) break;
+        can = can2;
+        ans++;
     }
 
-    cout << ans << '\n';
+    cout << -1 << '\n';
     
 }
 

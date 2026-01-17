@@ -12,23 +12,22 @@ void solve() {
 
     int n, m; cin >> n >> m;
 
-    vector<int> a(n);
+    vector<int> a(n), b(n);
 
-    a[0] = 1;
-    for(int i = 1; i < n; i++) cin >> a[i];
+    for(int i = 0; i < n; i++) cin >> a[i];
+    for(int i = 0; i < n; i++) cin >> b[i];
 
-    multiset<int> b;
-    for(int i = 0; i < n; i++) {
-        int x; cin >> x;
-        b.insert(x);
-    }
+    vector<int> mn(n);
+    for(int i = 0; i < n; i++) mn[i] = min(a[i], b[i]);
 
-    int ans = 0;
+    int s = 0;
+    for(int i = m; i < n; i++) s += mn[i];
 
-    for(int i = 0; i < n; i++) {
-        auto it = b.upper_bound(a[i]);
-        if(it == b.end()) ans++;
-        else b.erase(it);
+    int ans = INF;
+
+    for(int i = m-1; i >= 0; i--) {
+        ans = min(ans, a[i]+s);
+        s += mn[i];
     }
 
     cout << ans << '\n';

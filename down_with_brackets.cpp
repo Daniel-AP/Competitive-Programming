@@ -2,7 +2,7 @@
 using namespace std;
 
 #define int long long
-#define all(x) (x).begin(), (x).end()
+#define all(n) begin(n), end(n)
 #define INF (1LL<<60)
 
 // #define MOD 1000000007
@@ -10,13 +10,19 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    string s; cin >> s;
+    int n = s.length();
 
-    // think about lower bounds and upper bounds, probably these can be achieved
+    int cnt = 0;
+    vector<char> st;
 
-    // find something that never/always changes after an operation
+    for(int i = 0; i < n; i++) {
+        if(s[i] == '(') st.push_back('(');
+        else st.pop_back();
+        if(st.size() == 0) cnt++;
+    }
 
-    // dont forget about binary search
+    cout << (cnt > 1 ? "YES" : "NO") << '\n';
     
 }
 

@@ -10,13 +10,19 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n; cin >> n;
 
-    // think about lower bounds and upper bounds, probably these can be achieved
+    vector<int> b(n+1);
+    for(int i = 1; i <= n; i++) cin >> b[i];
 
-    // find something that never/always changes after an operation
+    map<int, int> cnt;
 
-    // dont forget about binary search
+    for(int i = 1; i <= n; i++) cnt[i-b[i]] += b[i];
+
+    int ans = 0;
+    for(auto [k, v]: cnt) ans = max(ans, v);
+
+    cout << ans << '\n';
     
 }
 
@@ -26,7 +32,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 
