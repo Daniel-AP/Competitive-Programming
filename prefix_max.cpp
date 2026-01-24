@@ -10,33 +10,14 @@ using namespace std;
 
 void solve() {
 
-    int k, n; cin >> k >> n;
+    int n; cin >> n;
 
     vector<int> a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
 
-    int l = 1, r = 1e12, mid, ans;
+    int mx = *max_element(all(a));
 
-    while(l <= r) {
-
-        mid = l+(r-l)/2;
-
-        int s = 0;
-
-        for(int i = 0; i < n; i++) {
-            s += min(mid, a[i]);
-        }
-
-        if(s >= mid*k) {
-            ans = mid;
-            l = mid+1;
-        } else {
-            r = mid-1;
-        }
-
-    }
-
-    cout << ans << '\n';
+    cout << mx*n << '\n';
     
 }
 
@@ -46,6 +27,7 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
+    cin >> t;
 
     while(t--) solve();
 

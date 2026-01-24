@@ -10,33 +10,26 @@ using namespace std;
 
 void solve() {
 
-    int k, n; cin >> k >> n;
+    int n; cin >> n;
 
     vector<int> a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
 
-    int l = 1, r = 1e12, mid, ans;
+    sort(all(a));
 
-    while(l <= r) {
+    int s = 0;
+    for(int i = 0; i < n; i++) s += a[i];
 
-        mid = l+(r-l)/2;
+    int t1 = (s+1)/2;
 
-        int s = 0;
+    vector<int> px(n+1);
+    partial_sum(all(a), px.begin()+1);
 
-        for(int i = 0; i < n; i++) {
-            s += min(mid, a[i]);
-        }
+    int j = upper_bound(all(px), t1)-px.begin();
 
-        if(s >= mid*k) {
-            ans = mid;
-            l = mid+1;
-        } else {
-            r = mid-1;
-        }
+    int t2 = n-j+1;
 
-    }
-
-    cout << ans << '\n';
+    cout << t1+t2 << '\n';
     
 }
 
@@ -46,6 +39,7 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
+    cin >> t;
 
     while(t--) solve();
 

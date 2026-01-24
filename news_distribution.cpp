@@ -10,13 +10,57 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int n, m; cin >> n >> m;
 
-    // think about lower bounds and upper bounds, probably these can be achieved
+    vector<vector<int>> adj(n+1, vector<int>());
 
-    // find something that never/always changes after an operation
+    for(int i = 0; i < m; i++) {
+        int k, u, v; cin >> k;
+        if(!k) continue;
+        cin >> u;
+        for(int j = 0; j < k-1; j++) {
+            cin >> v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+    }
 
-    // dont forget about binary search
+    vector<bool> vis(n+1);
+    vector<int> ans(n+1);
+    queue<int> q;
+
+    for(int i = 1; i <= n; i++) {
+
+        if(vis[i]) continue;
+
+        vector<int> cur;
+
+        q.push(i);
+        vis[i] = 1;
+
+        int cnt = 0;
+
+        while(!q.empty()) {
+
+            int u = q.front(); q.pop();
+
+            cnt++;
+            cur.push_back(u);
+
+            for(int v: adj[u]) {
+                if(vis[v]) continue;
+                q.push(v);
+                vis[v] = 1;
+            }
+
+        }
+
+        for(int u: cur) ans[u] = cnt;
+
+    }
+
+    for(int i = 1; i <= n; i++) cout << ans[i] << ' ';
+    cout << '\n';
     
 }
 
@@ -26,7 +70,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 
