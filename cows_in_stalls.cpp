@@ -10,33 +10,36 @@ using namespace std;
 
 void solve() {
 
-    int n; cin >> n;
+    int n, k; cin >> n >> k;
 
-    vector<int> x(n), v(n);
-    for(int i = 0; i < n; i++) cin >> x[i] >> v[i];
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
 
-    double l = 0, r = 2e9, mid, ans;
+    int l = 1, r = 1e9, mid, ans;
 
-    for(int i = 0; i < 100; i++) {
+    while(l <= r) {
 
         mid = l+(r-l)/2;
 
-        double lb = -mid*v[0]+x[0], rb = mid*v[0]+x[0];
+        int last = a[0], cnt = 1;
 
         for(int i = 1; i < n; i++) {
-            lb = max(lb, -mid*v[i]+x[i]), rb = min(rb, mid*v[i]+x[i]);
+            if(a[i]-last >= mid) {
+                last = a[i];
+                cnt++;
+            }
         }
 
-        if(lb <= rb) {
+        if(cnt >= k) {
             ans = mid;
-            r = mid;
+            l = mid+1;
         } else {
-            l = mid;
+            r = mid-1;
         }
-        
+
     }
 
-    cout << fixed << setprecision(9) << ans << '\n';
+    cout << ans << '\n';
     
 }
 
