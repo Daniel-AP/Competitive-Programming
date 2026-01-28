@@ -24,7 +24,7 @@ static inline unsigned long long uvar(const vector<unsigned char>& b, size_t& i)
     return x;
 }
 static inline long long zigzag_to_slong(unsigned long long u){
-    return (long long)((u>>1) ^ (~(u&1)+1));
+    return (long long)((u>>1)^(~(u&1)+1));
 }
 
 int main(){

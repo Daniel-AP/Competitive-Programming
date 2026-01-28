@@ -3,14 +3,14 @@
 // macros
 typedef long long int ll;
 #define vec vector 
-#define loop(i, a, b) for (int i = a; i < b; i++)
+#define loop(i, a, b) for(int i = a; i < b; i++)
 #define F first
 #define S second
 // constants
 #define INF (1LL << 62)
 #define int long long
 #define printarr(a) cout << #a << ": "; \
-	 	    for (auto x : a) cout << x << " "; \
+	 	    for(auto x : a) cout << x << " "; \
 		    cout << "\n";
 
 using namespace std;
@@ -25,16 +25,16 @@ bool ok(int x) {
 	q.push(0);
 	vis[0] = true;
 
-	while (!q.empty()) {
+	while(!q.empty()) {
 		int node = q.front();
 		q.pop();
 
-		for (auto ngb : g[node]) {
-			if (ngb.S[1] > x) {
+		for(auto ngb : g[node]) {
+			if(ngb.S[1] > x) {
 				continue;
 			}
-			if (ngb.F == N-1) return true;
-			if (vis[ngb.F]) continue;
+			if(ngb.F == N-1) return true;
+			if(vis[ngb.F]) continue;
 			q.push(ngb.F);
 			vis[ngb.F] = true;
 		}
@@ -52,26 +52,26 @@ int dijkstra(int maxRisk) {
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
     pq.push({0, 0});
     
-    while (!pq.empty()) {
+    while(!pq.empty()) {
         auto [time, node] = pq.top();
         pq.pop();
         
         // if we found a better path to this node already, skip
-        if (time > dist[node]) continue;
+        if(time > dist[node]) continue;
         
         // if we reached the destination, return the time
-        if (node == N-1) return time;
+        if(node == N-1) return time;
         
-        for (auto ngb : g[node]) {
+        for(auto ngb : g[node]) {
             int neighbor = ngb.F;
             int edgeTime = ngb.S[0];
             int edgeRisk = ngb.S[1];
             
             // Only consider edges within the risk limit
-            if (edgeRisk > maxRisk) continue;
+            if(edgeRisk > maxRisk) continue;
             
-            int newTime = time + edgeTime;
-            if (newTime < dist[neighbor]) {
+            int newTime = time+edgeTime;
+            if(newTime < dist[neighbor]) {
                 dist[neighbor] = newTime;
                 pq.push({newTime, neighbor});
             }
@@ -106,21 +106,21 @@ void solve() {
 		add_node(w, u, W, R);
 	}
 
-    if (!ok(r)) {
+    if(!ok(r)) {
         cout << -1 << "\n";
         return;
     }
 
 	int l = -1;
-	while (r - l > 1) {
-		int m = (r - l) / 2 + l;
-		if (ok(m)) r = m;
+	while(r-l > 1) {
+		int m = (r-l) / 2+l;
+		if(ok(m)) r = m;
 		else l = m;
 	}
 
     int minTime = dijkstra(r);
     
-    if (minTime == INF) {
+    if(minTime == INF) {
         cout << -1 << "\n";
     } else {
         cout << r << " " << minTime << "\n";
@@ -133,7 +133,7 @@ signed main() {
 	
 	int t = 1;
 	cin >> t;
-	while (t--) solve();
+	while(t--) solve();
 
 	return 0;
 }

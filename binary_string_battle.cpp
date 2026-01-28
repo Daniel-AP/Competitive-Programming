@@ -4,7 +4,7 @@ using namespace std;
 #define int long long
 #define INF (1LL<<60)
 #define START_TIMER auto __start = std::chrono::high_resolution_clock::now();
-#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - __start).count() << " ms\n";
+#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now()-__start).count() << " ms\n";
 
 void solve() {
     int n, k;
@@ -12,28 +12,28 @@ void solve() {
     cin >> n >> k >> s;
 
     bool all_zero = true;
-    for (char c : s) {
-        if (c != '0') {
+    for(char c : s) {
+        if(c != '0') {
             all_zero = false;
             break;
         }
     }
-    if (all_zero) {
+    if(all_zero) {
         cout << "Alice\n";
         return;
     }
 
-    if (k == 1) {
+    if(k == 1) {
         cout << "Alice\n";
         return;
     }
 
     bool has_k_ones = false;
     int cnt = 0;
-    for (char c : s) {
-        if (c == '1') {
+    for(char c : s) {
+        if(c == '1') {
             cnt++;
-            if (cnt >= k) {
+            if(cnt >= k) {
                 has_k_ones = true;
                 break;
             }
@@ -42,12 +42,12 @@ void solve() {
         }
     }
 
-    if (!has_k_ones) {
+    if(!has_k_ones) {
         cout << "Alice\n";
         return;
     }
 
-    if (k == n) {
+    if(k == n) {
         cout << "Alice\n";
         return;
     }

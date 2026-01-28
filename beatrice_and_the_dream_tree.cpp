@@ -15,14 +15,14 @@ int cnt;
 struct custom_hash {
     static uint64_t splitmix64(uint64_t x) {
         x += 0x9e3779b97f4a7c15ULL;
-        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
-        x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
-        return x ^ (x >> 31);
+        x = (x^(x >> 30))*0xbf58476d1ce4e5b9ULL;
+        x = (x^(x >> 27))*0x94d049bb133111ebULL;
+        return x^(x >> 31);
     }
     
     size_t operator()(uint64_t x) const {
         static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
-        return (size_t)splitmix64(x + FIXED_RANDOM);
+        return (size_t)splitmix64(x+FIXED_RANDOM);
     }
 };
 
@@ -30,10 +30,10 @@ struct vec_hash {
     int operator()(const vector<int>& v) const noexcept {
         static const uint64_t SEED =
             chrono::steady_clock::now().time_since_epoch().count();
-        uint64_t h = custom_hash::splitmix64(SEED + v.size());
+        uint64_t h = custom_hash::splitmix64(SEED+v.size());
         for(int i = 0; i < v.size(); i++) {
             uint64_t x = (uint64_t)hash<int>{}(v[i]);
-            h ^= custom_hash::splitmix64(x + 0x9e3779b97f4a7c15ULL * (i + 1));
+            h ^= custom_hash::splitmix64(x+0x9e3779b97f4a7c15ULL*(i+1));
             h = custom_hash::splitmix64(h);
         }
         return (int)h;
@@ -115,8 +115,8 @@ void solve() {
             sort(a.begin(), a.end());
             for(int i = 0; i < (int)a.size();) {
                 int j = i;
-                while (j < (int)a.size() && a[j].first == a[i].first) j++;
-                if(j - i == 1) uni[a[i].second] = 1;
+                while(j < (int)a.size() && a[j].first == a[i].first) j++;
+                if(j-i == 1) uni[a[i].second] = 1;
                 i = j;
             }
         }

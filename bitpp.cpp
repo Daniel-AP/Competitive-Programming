@@ -12,7 +12,7 @@ int main() {
 
     cin >> n;
 
-    while (n--) {
+    while(n--) {
 
         cin >> statement;
 

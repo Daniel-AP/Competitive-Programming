@@ -16,11 +16,11 @@ int main() {
     for(int i = 1; i <= n; i++) cin >> a[i];
 
     for(int i = 1; i <= n; i++) {
-        forward[i] = (a[i-1] > a[i] ? a[i-1]-a[i] : 0) + forward[i-1];
+        forward[i] = (a[i-1] > a[i] ? a[i-1]-a[i] : 0)+forward[i-1];
     }
 
     for(int i = n-1; i > 0; i--) {
-        backward[i] = (a[i+1] > a[i] ? a[i+1]-a[i] : 0) + backward[i+1];
+        backward[i] = (a[i+1] > a[i] ? a[i+1]-a[i] : 0)+backward[i+1];
     }
     
     for(int i = 0; i < m; i++) {

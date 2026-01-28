@@ -17,9 +17,9 @@ void dfs(int node, int sum, int depth, vector<int>& path, unordered_map<int,int>
     path.push_back(node);
     depth++;
 
-    if(mp.find(sum - x) != mp.end()) {
+    if(mp.find(sum-x) != mp.end()) {
 
-        int start = mp[sum - x];
+        int start = mp[sum-x];
 
         ans = vector<int>(path.begin()+start, path.end());
         found = true;

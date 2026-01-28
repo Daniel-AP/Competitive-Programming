@@ -4,7 +4,7 @@ using namespace std;
 #define int long long
 #define INF (1LL<<60)
 #define START_TIMER auto __start = std::chrono::high_resolution_clock::now();
-#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - __start).count() << " ms\n";
+#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now()-__start).count() << " ms\n";
 
 #define MOD 1000000007
 
@@ -15,7 +15,7 @@ typedef struct uf {
 		ids = new int[n];
 		sizes = new int[n];
 
-		for (int i = 0; i < n; i++) {
+		for(int i = 0; i < n; i++) {
 			ids[i] = i;
 			sizes[i] = 1;
 		}
@@ -23,10 +23,10 @@ typedef struct uf {
 
 	int f(int i) {
 		int p = i;
-		while (ids[p] != p)
+		while(ids[p] != p)
 			p = ids[p];
 
-		while (ids[i] != i) {
+		while(ids[i] != i) {
 			int pp = ids[i];
 			ids[i] = p;
 			i = pp;
@@ -37,11 +37,11 @@ typedef struct uf {
 
 	void u(int i, int j) {
 		int p1 = f(i), p2 = f(j);
-		if (p1 == p2) return;
+		if(p1 == p2) return;
 
-		int nS = sizes[p1] + sizes[p2];
+		int nS = sizes[p1]+sizes[p2];
 
-		if (sizes[p1] < sizes[p2]) {
+		if(sizes[p1] < sizes[p2]) {
 			ids[p1] = p2;
 		} else {
 			ids[p2] = p1;

@@ -23,7 +23,7 @@ int main() {
             cin >> h_i >> m_i;
 
             int minutes_i = h_i*60+m_i;
-            int result_minutes = minutes_i >= minutes ? minutes_i - minutes : 24*60-minutes+minutes_i;
+            int result_minutes = minutes_i >= minutes ? minutes_i-minutes : 24*60-minutes+minutes_i;
             
             result = min(result, result_minutes);
 

@@ -77,7 +77,7 @@ signed main() {
     solve();
 
     auto end = chrono::system_clock::now();
-    chrono::duration<double> elapsed_seconds = end - start;
+    chrono::duration<double> elapsed_seconds = end-start;
 
     cout << elapsed_seconds.count() << endl;
 

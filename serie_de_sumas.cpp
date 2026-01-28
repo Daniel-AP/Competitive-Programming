@@ -4,7 +4,7 @@ using namespace std;
 #define int long long
 #define INF (1LL<<60)
 #define START_TIMER auto __start = std::chrono::high_resolution_clock::now();
-#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - __start).count() << " ms\n";
+#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now()-__start).count() << " ms\n";
 
 #define MOD 10000000
 
@@ -14,7 +14,7 @@ int binpow(int a, int b) {
     int res = 1;
 
     while(b > 0) {
-        if(b & 1) res = res*a%MOD;
+        if(b&1) res = res*a%MOD;
         a = a*a%MOD;
         b >>= 1;
     }

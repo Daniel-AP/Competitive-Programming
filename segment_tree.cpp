@@ -11,24 +11,24 @@ struct Seg {
 	int n;
 	vector<int> s;
 
-	Seg(int n, vector<int> &a) : n(n), s(2 * n) {
+	Seg(int n, vector<int> &a) : n(n), s(2*n) {
 		// Copy original array into second half of s (leaf nodes)
 		for(int i = 0; i < n; i++) {
             s[i+n] = a[i];
         }
 		
 		// Build internal nodes from bottom up
-		for (int i = n - 1; i > 0; i--) {
-			s[i] = max(s[2 * i], s[2 * i + 1]);
+		for(int i = n-1; i > 0; i--) {
+			s[i] = max(s[2*i], s[2*i+1]);
 		}
 	}
 
 	void update(int i, int v) {
 		i += n;        // Move index to leaf
 		s[i] = v;      // Set new value
-		while (i > 1) { 
+		while(i > 1) { 
 			i /= 2;    // Move to parent
-			s[i] = max(s[2 * i], s[2 * i + 1]); // Update parent
+			s[i] = max(s[2*i], s[2*i+1]); // Update parent
 		}
 	}
 
@@ -44,15 +44,15 @@ struct Seg {
         r += n;
 
         // While the interval is non-empty
-        while (l < r) {
+        while(l < r) {
             // If l is a right child (odd index), it cannot be part of the same parent range
-            if (l % 2 == 1) {
+            if(l%2 == 1) {
                 la = max(la, s[l]);  // Include s[l] in result
                 l++;                 // Move to next segment
             }
 
-            // If r is a right child, then r - 1 is a left child, we need to include it
-            if (r % 2 == 1) {
+            // If r is a right child, then r-1 is a left child, we need to include it
+            if(r%2 == 1) {
                 r--;                 // Move to left sibling
                 ra = max(s[r], ra);  // Include s[r] in result
             }

@@ -13,7 +13,7 @@ int main() {
     
     cin >> n >> k;
 
-    for (int i = 0; i < n; i++)
+    for(int i = 0; i < n; i++)
     {
         cin >> current_num;
 

@@ -4,7 +4,7 @@ using namespace std;
 #define int long long
 #define INF (1LL<<60)
 #define START_TIMER auto __start = std::chrono::high_resolution_clock::now();
-#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - __start).count() << " ms\n";
+#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now()-__start).count() << " ms\n";
 
 #define MOD 1000000007
 
@@ -76,10 +76,10 @@ struct BIT {
 //     // Constructor: initialize BIT of size 'size'
 //     BIT(int n, const vector<int>& arr) : n(n), tree(n+1) {
 
-//         for (int i = 1; i <= n; i++) {
+//         for(int i = 1; i <= n; i++) {
 //             tree[i] += arr[i-1]; 
-//             int j = i + (i & -i);
-//             if (j <= n) tree[j] += tree[i];
+//             int j = i+(i&-i);
+//             if(j <= n) tree[j] += tree[i];
 //         }
 
 //     }
@@ -87,10 +87,10 @@ struct BIT {
 //     // Add 'val' to index 'i' (1-based)
 //     void update(int i, int val) {
 //         // Traverse all nodes that are responsible for index 'i'
-//         while (i <= n) {
+//         while(i <= n) {
 //             tree[i] += val;      // Update current node
-//             i += i & -i;         // Move to next node responsible for index i
-//             // 'i & -i' isolates the lowest set bit
+//             i += i&-i;         // Move to next node responsible for index i
+//             // 'i&-i' isolates the lowest set bit
 //             // Adding it moves to the next interval that includes i
                // its the only way to incremente the LSB
                // only ranges greater than i include i
@@ -101,11 +101,11 @@ struct BIT {
 //     int query(int i) {
 //         int sum = 0;
 //         // Traverse all relevant nodes to accumulate the sum
-//         while (i > 0) {
+//         while(i > 0) {
 //             sum += tree[i];      // Add current node's value
-//             i -= i & -i;         // Allows us to move the parent node which is the next number with a greater LSB
+//             i -= i&-i;         // Allows us to move the parent node which is the next number with a greater LSB
 //             // because all ranges of the same size are disjoint then we can only check larger ranges (greater LSB)
-//             // Subtracting 'i & -i' moves to the previous interval
+//             // Subtracting 'i&-i' moves to the previous interval
 //         }
 //         return sum;
 //     }
@@ -113,8 +113,8 @@ struct BIT {
 //     // Query sum of range [l, r]
 //     int range(int l, int r) {
 //         // Use prefix sums to get range sum
-//         // sum(l..r) = sum(1..r) - sum(1..(l-1))
-//         return query(r) - query(l - 1);
+//         // sum(l..r) = sum(1..r)-sum(1..(l-1))
+//         return query(r)-query(l-1);
 //     }
 
 // };

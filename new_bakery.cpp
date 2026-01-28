@@ -32,7 +32,7 @@ int main() {
 
         }
 
-        cout << k*(b+b-k+1)/2 + a*(n-k) << endl;
+        cout << k*(b+b-k+1)/2+a*(n-k) << endl;
 
     }
 

@@ -4,7 +4,7 @@ using namespace std;
 #define int unsigned long long
 #define INF (1LL<<60)
 #define START_TIMER auto __start = std::chrono::high_resolution_clock::now();
-#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - __start).count() << " ms\n";
+#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now()-__start).count() << " ms\n";
 
 string xr(string a, string b) {
 
@@ -16,11 +16,11 @@ string xr(string a, string b) {
 
     for(int i = 0; i < n; i++) {
 
-        char ca = (i < na ? a[na - 1 - i] : '0');
-        char cb = (i < nb ? b[nb - 1 - i] : '0');
+        char ca = (i < na ? a[na-1-i] : '0');
+        char cb = (i < nb ? b[nb-1-i] : '0');
 
         if(ca != cb) {
-            result[n - 1 - i] = '1';
+            result[n-1-i] = '1';
         }
 
     }

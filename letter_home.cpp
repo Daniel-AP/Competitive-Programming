@@ -4,7 +4,7 @@ using namespace std;
 #define int long long
 #define INF (1LL<<60)
 #define START_TIMER auto __start = std::chrono::high_resolution_clock::now();
-#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - __start).count() << " ms\n";
+#define END_TIMER std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now()-__start).count() << " ms\n";
 
 void solve() {
 
@@ -13,7 +13,7 @@ void solve() {
     vector<int> x(n);
     for(int i = 0; i < n; i++) cin >> x[i];
 
-    cout << (x[n-1]-x[0]) + min(abs(s-x[0]), abs(s-x[n-1])) << '\n';
+    cout << (x[n-1]-x[0])+min(abs(s-x[0]), abs(s-x[n-1])) << '\n';
     
 }
 

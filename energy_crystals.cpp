@@ -3,7 +3,7 @@ using namespace std;
 
 #define int unsigned long long
 #define INF (1LL<<60)
-#define LOG2(X) ((unsigned) (8*sizeof (unsigned long long) - __builtin_clzll((X)) - 1))
+#define LOG2(X) ((unsigned) (8*sizeof (unsigned long long)-__builtin_clzll((X))-1))
 
 void solve() {
 

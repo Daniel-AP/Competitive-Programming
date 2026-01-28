@@ -14,7 +14,7 @@ ll count_digits_before(ll n) {
         ll current = (n/place)%10;
         ll lower = n%place;
 
-        count += higher * place;
+        count += higher*place;
 
         if(current > 1) {
             count += place;

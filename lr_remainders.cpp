@@ -27,17 +27,17 @@ struct Tree {
 	Tree(int n) : n(n), s(2*n, Mono::zero()) {}
 
 	void update(int pos, Mono val) {
-		for (s[pos += n] = val; pos >>= 1;) s[pos] = s[pos<<1] + s[pos<<1|1];
+		for(s[pos += n] = val; pos >>= 1;) s[pos] = s[pos<<1]+s[pos<<1|1];
 	}
 
 	// [l, r)
 	Mono query(int l, int r) {
 		Mono lv = Mono::zero(), rv = Mono::zero();
-		for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
-			if (l&1) lv = lv + s[l++];
-			if (r&1) rv = s[--r] + rv;
+		for(l += n, r += n; l < r; l >>= 1, r >>= 1) {
+			if(l&1) lv = lv+s[l++];
+			if(r&1) rv = s[--r]+rv;
 		}
-		return lv + rv;
+		return lv+rv;
 	}
 };
 

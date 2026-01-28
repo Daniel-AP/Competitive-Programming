@@ -5,7 +5,7 @@ using namespace std;
 
 void hanoi(int n, int l, int r, int mid) {
 
-    if (n == 0) return;
+    if(n == 0) return;
     hanoi(n-1, l, mid, r);
     cout << l << " " << r << endl;
     hanoi(n-1, mid, r, l);

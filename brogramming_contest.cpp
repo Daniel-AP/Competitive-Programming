@@ -22,11 +22,11 @@ void solve() {
         }
         
         int segments = 0;
-        for (int i = 0; i < n - 1; i++){
+        for(int i = 0; i < n-1; i++){
             if(s[i] != s[i+1]) segments++;
         }
         
-        int ans = segments + (s[0] == '1' ? 1 : 0);
+        int ans = segments+(s[0] == '1' ? 1 : 0);
         cout << ans << endl;
 
     }
