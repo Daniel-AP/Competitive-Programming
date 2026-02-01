@@ -1,0 +1,2 @@
+#define START_TIMER auto __start = std::chrono::high_resolution_clock::now();
+#define END_TIMER std::cout << "\nTime elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now()-__start).count() << " ms\n";

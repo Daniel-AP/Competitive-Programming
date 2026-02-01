@@ -10,19 +10,17 @@ using namespace std;
 
 void solve() {
 
-    int n, a, b; cin >> n >> a >> b;
+    int n, r; cin >> n >> r;
 
-    vector<int> x(n+1);
-    for(int i = 1; i <= n; i++) cin >> x[i];
+    vector<int> d(n);
+    for(int i = 0; i < n; i++) cin >> d[i];
 
-    vector<int> px(n+1);
-    partial_sum(x.begin()+1, x.end(), px.begin()+1);
+    int l = 0, cur = 0, ans = 0;
 
-    int ans = b*px[n];
-
-    for(int i = 1; i <= n; i++) {
-        int cand = b*px[n]+a*x[i]-b*px[i-1]-b*x[i]*(n-i);
-        ans = min(ans, cand);
+    for(int rr = 1; rr < n; rr++) {
+        cur = d[rr]-d[l];
+        while(cur > r && rr-l > 0) cur = d[rr]-d[++l];
+        ans += l;
     }
 
     cout << ans << '\n';
@@ -35,7 +33,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

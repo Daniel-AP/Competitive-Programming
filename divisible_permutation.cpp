@@ -10,22 +10,19 @@ using namespace std;
 
 void solve() {
 
-    int n, a, b; cin >> n >> a >> b;
+    int n; cin >> n;
 
-    vector<int> x(n+1);
-    for(int i = 1; i <= n; i++) cin >> x[i];
+    vector<int> ans(n);
 
-    vector<int> px(n+1);
-    partial_sum(x.begin()+1, x.end(), px.begin()+1);
+    int r = n, l = 1;
 
-    int ans = b*px[n];
-
-    for(int i = 1; i <= n; i++) {
-        int cand = b*px[n]+a*x[i]-b*px[i-1]-b*x[i]*(n-i);
-        ans = min(ans, cand);
+    for(int i = n-1; i >= 0; i--) {
+        if(i%2 == (n-1)%2) ans[i] = r--;
+        else ans[i] = l++;
     }
 
-    cout << ans << '\n';
+    for(int x: ans) cout << x << ' ';
+    cout << '\n';
     
 }
 
