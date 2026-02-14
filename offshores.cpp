@@ -10,15 +10,21 @@ using namespace std;
 
 void solve() {
 
-    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
+    int n, x, y; cin >> n >> x >> y;
 
-    // always check brute force solution and check its actual complexity
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
 
-    // find something that never/always changes after an operation
+    int s = 0;
+    for(int i = 0; i < n; i++) s += a[i]/x*y;
 
-    // dont forget about binary search
+    int ans = 0;
 
-    // try fixing values on equations
+    for(int i = 0; i < n; i++) {
+        ans = max(ans, s-a[i]/x*y+a[i]);
+    }
+
+    cout << ans << '\n';
     
 }
 

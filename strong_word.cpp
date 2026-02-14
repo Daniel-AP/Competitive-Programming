@@ -10,15 +10,9 @@ using namespace std;
 
 void solve() {
 
-    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
+    string s; cin >> s;
 
-    // always check brute force solution and check its actual complexity
-
-    // find something that never/always changes after an operation
-
-    // dont forget about binary search
-
-    // try fixing values on equations
+    cout << (s[0] == s.back() ? "Yes" : "No") << '\n';
     
 }
 
@@ -28,7 +22,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

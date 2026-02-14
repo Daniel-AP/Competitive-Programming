@@ -13,7 +13,7 @@ struct AggQueue {
 
     vector<pair<T, T>> in, out;
 
-    int size() const { return (int)in.size() + (int)out.size(); }
+    int size() const { return (int)in.size()+(int)out.size(); }
     bool empty() const { return size() == 0; }
 
     void push(const T& x) {

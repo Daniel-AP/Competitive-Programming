@@ -10,13 +10,9 @@ using namespace std;
 
 void solve() {
 
-    // always check brute force solution and check its actual complexity
+    int x; cin >> x;
 
-    // think about lower bounds and upper bounds, probably these can be achieved
-
-    // find something that never/always changes after an operation
-
-    // dont forget about binary search
+    cout << x*8 << '\n';
     
 }
 

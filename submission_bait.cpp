@@ -2,32 +2,24 @@
 using namespace std;
 
 #define int long long
+#define all(x) (x).begin(), (x).end()
+#define INF (1LL<<60)
+
+// #define MOD 1000000007
+// #define MOD 998244353
 
 void solve() {
 
-    int t; cin >> t;
+    // always check brute force solution and check its actual complexity
 
-    while(t--) {
+    // think about lower bounds and upper bounds, probably these can be achieved
 
-        int n; cin >> n;
+    // find something that never/always changes after an operation
 
-        vector<int> a(n);
-        for(int i = 0; i < n; i++) cin >> a[i];
+    // dont forget about binary search
 
-        set<int> r(a.begin(), a.end());
-
-        string ans = "NO";
-        
-        for(int i: r) {
-            if(count(a.begin(), a.end(), i)%2 == 1) {
-                ans = "YES";
-            }
-        }
-
-        cout << ans << endl;
-
-    }
-
+    // try fixing values on equations
+    
 }
 
 signed main() {
@@ -35,7 +27,10 @@ signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
 
-    solve();
+    int t = 1;
+    cin >> t;
+
+    while(t--) solve();
 
     return 0;
 

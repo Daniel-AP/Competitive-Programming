@@ -10,15 +10,13 @@ using namespace std;
 
 void solve() {
 
-    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
+    int n, m, p, q; cin >> n >> m >> p >> q;
+    int g = gcd(n/p, n-n/p), diff = abs(m-n/p*q);
 
-    // always check brute force solution and check its actual complexity
-
-    // find something that never/always changes after an operation
-
-    // dont forget about binary search
-
-    // try fixing values on equations
+    if(n == n/p) return void(cout << (q*n == m ? "YES" : "NO") << '\n');
+    
+    if(diff%g == 0) cout << "YES" << '\n';
+    else cout << "NO" << '\n';
     
 }
 

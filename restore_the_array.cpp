@@ -10,15 +10,20 @@ using namespace std;
 
 void solve() {
 
-    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
+    int n; cin >> n;
 
-    // always check brute force solution and check its actual complexity
+    vector<int> b(n-1);
+    for(int i = 0; i < n-1; i++) cin >> b[i];
 
-    // find something that never/always changes after an operation
+    vector<int> a(n);
+    a[0] = b[0], a[n-1] = b.back();
 
-    // dont forget about binary search
+    for(int i = 1; i < n-1; i++) {
+        a[i] = min(b[i-1], b[i]);
+    }
 
-    // try fixing values on equations
+    for(int x: a) cout << x << ' ';
+    cout << '\n';
     
 }
 

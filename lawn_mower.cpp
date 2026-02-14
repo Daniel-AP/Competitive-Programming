@@ -10,15 +10,9 @@ using namespace std;
 
 void solve() {
 
-    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
+    int n, w; cin >> n >> w;
 
-    // always check brute force solution and check its actual complexity
-
-    // find something that never/always changes after an operation
-
-    // dont forget about binary search
-
-    // try fixing values on equations
+    cout << n-n/w << '\n';
     
 }
 

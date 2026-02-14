@@ -10,15 +10,13 @@ using namespace std;
 
 void solve() {
 
-    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
+    int a, b, c; cin >> a >> b >> c;
 
-    // always check brute force solution and check its actual complexity
+    if(a-1 == abs(b-c)+(c-1)) cout << 3;
+    else if(a-1 < abs(b-c)+(c-1)) cout << 1;
+    else cout << 2;
 
-    // find something that never/always changes after an operation
-
-    // dont forget about binary search
-
-    // try fixing values on equations
+    cout << '\n';
     
 }
 
