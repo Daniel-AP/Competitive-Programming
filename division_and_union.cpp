@@ -10,16 +10,35 @@ using namespace std;
 
 void solve() {
 
-    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
+    int n; cin >> n;
 
-    // always check brute force solution and check its actual complexity
+    vector<array<int, 3>> lr(n);
 
-    // find something that never/always changes after an operation
+    for(int i = 0; i < n; i++) {
+        int l, r; cin >> l >> r;
+        lr[i] = {l, r, i};
+    }
 
-    // dont forget about binary search
+    sort(all(lr));
 
-    // try fixing values on equations
-    
+    int mx = lr[0][1];
+    vector<int> ans(n);
+
+    for(int i = 1; i < n; i++) {
+        if(mx < lr[i][0]) {
+            for(int j = 0; j < i; j++) ans[lr[j][2]] = 1;
+            for(int j = i; j < n; j++) ans[lr[j][2]] = 2;
+            break;
+        }
+        mx = max(mx, lr[i][1]);
+    }
+
+    if(ans[0] == 0) cout << -1 << '\n';
+    else {
+        for(int x: ans) cout << x << ' ';
+        cout << '\n';
+    }
+
 }
 
 signed main() {
