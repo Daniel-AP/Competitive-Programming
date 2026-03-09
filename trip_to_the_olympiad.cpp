@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int long long
+#define int unsigned long long
 #define all(x) (x).begin(), (x).end()
 #define INF (1LL<<60)
 
@@ -10,14 +10,15 @@ using namespace std;
 
 void solve() {
 
-    int n, m, k; cin >> n >> m >> k;
-    if(m < n) swap(n, m);
+    int l, r; cin >> l >> r;
+    int p = bit_width(l^r);
+    int px = (l>>p)*(1LL<<p);
 
-    if(m < k) return void(cout << "Yes" << '\n');
+    cout << px+(1LL<<(p-1)) << ' ' << px+(1LL<<(p-1))-1 << ' ';
 
-    int d = m-k+1;
-
-    cout << (d <= n*(k-1) ? "Yes" : "No") << '\n';
+    for(int i = l; i <= r; i++) {
+        if(i != px+(1LL<<(p-1)) && i != px+(1LL<<(p-1))-1) return void(cout << i << '\n');
+    }
     
 }
 
