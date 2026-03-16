@@ -10,18 +10,15 @@ using namespace std;
 
 void solve() {
 
-    int n; cin >> n;
+    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
 
-    vector<int> p(n);
-    for(int i = 0; i < n; i++) cin >> p[i];
+    // always check brute force solution and check its actual complexity
 
-    if(p[0] != n) {
-        int i = find(all(p), n)-p.begin();
-        swap(p[0], p[i]);
-    }
+    // find something that never/always changes after an operation
 
-    for(int x: p) cout << x << ' ';
-    cout << '\n';
+    // dont forget about binary search
+
+    // try fixing values on equations
     
 }
 

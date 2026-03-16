@@ -10,18 +10,16 @@ using namespace std;
 
 void solve() {
 
-    int n; cin >> n;
+    int a, b, c, m; cin >> a >> b >> c >> m;
+    int abc = m/lcm(lcm(a, b), c);
+    int ab = m/lcm(a, b)-abc;
+    int ac = m/lcm(a, c)-abc;
+    int bc = m/lcm(b, c)-abc;
+    int A = m/a-ab-ac-abc;
+    int B = m/b-ab-bc-abc;
+    int C = m/c-ac-bc-abc;
 
-    vector<int> p(n);
-    for(int i = 0; i < n; i++) cin >> p[i];
-
-    if(p[0] != n) {
-        int i = find(all(p), n)-p.begin();
-        swap(p[0], p[i]);
-    }
-
-    for(int x: p) cout << x << ' ';
-    cout << '\n';
+    cout << A*6+(ab+ac)*3+2*abc << ' ' << B*6+(ab+bc)*3+2*abc << ' ' << C*6+(ac+bc)*3+2*abc << '\n';
     
 }
 

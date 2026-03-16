@@ -11,17 +11,23 @@ using namespace std;
 void solve() {
 
     int n; cin >> n;
+    string s; cin >> s;
 
-    vector<int> p(n);
-    for(int i = 0; i < n; i++) cin >> p[i];
+    set<int> has;
 
-    if(p[0] != n) {
-        int i = find(all(p), n)-p.begin();
-        swap(p[0], p[i]);
+    has.insert(1);
+    int cur = 1;
+
+    while(n--) {
+        if(s[cur-1] == 'L') {
+            cur--;
+        } else {
+            cur++;
+        }
+        has.insert(cur);
     }
 
-    for(int x: p) cout << x << ' ';
-    cout << '\n';
+    cout << has.size() << '\n';
     
 }
 
