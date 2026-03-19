@@ -10,16 +10,24 @@ using namespace std;
 
 void solve() {
 
-    int n, x; cin >> n >> x;
-    int ans = 0;
+    int n; cin >> n;
+    vector<double> c(n), p(n);
 
-    for(int a = 1; a <= n; a++) {
-        for(int b = 1; (n-a*b)/(a+b) > 0 && x-a-b > 0; b++) {
-            ans += min((n-a*b)/(a+b), x-a-b);
-        }
+    for(int i = 0; i < n; i++) {
+        cin >> c[i] >> p[i];
     }
 
-    cout << ans << '\n';
+    vector<double> dp(n);
+    dp[n-1] = c[n-1];
+
+    double mx = dp[n-1];
+
+    for(int i = n-2; i >= 0; i--) {
+        dp[i] = max(c[i]+(1-p[i]/100)*mx, dp[i+1]);
+        mx = max(mx, dp[i]);
+    }
+
+    cout << fixed << setprecision(9) << dp[0] << '\n';
     
 }
 

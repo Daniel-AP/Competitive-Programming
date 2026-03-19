@@ -10,16 +10,26 @@ using namespace std;
 
 void solve() {
 
-    int n, x; cin >> n >> x;
-    int ans = 0;
+    int n; cin >> n;
+    map<int, int> cnt;
 
-    for(int a = 1; a <= n; a++) {
-        for(int b = 1; (n-a*b)/(a+b) > 0 && x-a-b > 0; b++) {
-            ans += min((n-a*b)/(a+b), x-a-b);
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            int x; cin >> x;
+            cnt[x]++;
         }
     }
 
-    cout << ans << '\n';
+    int mx = 0;
+
+    for(auto& [k, v]: cnt) {
+        mx = max(mx, v);
+    }
+
+    if(mx > n*n-n) cout << "NO";
+    else cout << "YES";
+
+    cout << '\n';
     
 }
 
