@@ -12,7 +12,19 @@ void solve() {
 
     int n; cin >> n;
 
-    cout << n+(n/2)*2+(n/3)*2 << '\n';
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    for(int i = 0; i < n; i++) {
+        int l = 0, g = 0;
+        for(int j = i+1; j < n; j++) {
+            if(a[j] < a[i]) l++;
+            if(a[j] > a[i]) g++;
+        }
+        cout << max(l, g) << ' ';
+    }
+
+    cout << '\n';
     
 }
 

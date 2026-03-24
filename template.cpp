@@ -12,6 +12,8 @@ void solve() {
 
     // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
 
+    // In IMPLEMENTATION, think about vars/limits, and when to change them
+
     // always check brute force solution and check its actual complexity
 
     // find something that never/always changes after an operation

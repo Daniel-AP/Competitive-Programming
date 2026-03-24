@@ -12,7 +12,18 @@ void solve() {
 
     int n; cin >> n;
 
-    cout << n+(n/2)*2+(n/3)*2 << '\n';
+    vector<int> a;
+    for(int i = 1; i <= n; i++) a.push_back(i);
+
+    for(int i = 0; i < a.size(); i++) {
+        if(i%2 == 0) {
+            a.push_back(a[i]);
+        } else {
+            cout << a[i] << ' ';
+        }
+    }
+
+    cout << '\n';
     
 }
 
@@ -22,7 +33,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

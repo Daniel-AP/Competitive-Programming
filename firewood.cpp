@@ -10,9 +10,9 @@ using namespace std;
 
 void solve() {
 
-    int n; cin >> n;
+    int n, k; cin >> n >> k;
 
-    cout << n+(n/2)*2+(n/3)*2 << '\n';
+    cout << n-countr_zero((unsigned int)k) << '\n';
     
 }
 
