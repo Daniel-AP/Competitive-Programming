@@ -10,13 +10,18 @@ using namespace std;
 
 void solve() {
 
-    array<int, 3> a;
-    cin >> a[0] >> a[1] >> a[2];
+    int n; cin >> n;
 
-    sort(all(a));
+    vector<int> p(n);
 
-    cout << (a[0]^a[1]^a[2])-a[1] << '\n';
+    iota(all(p), 1);
+    reverse(all(p));
     
+    rotate(p.begin(), p.end()-1, p.end());
+
+    for(int x: p) cout << x << ' ';
+    cout << '\n';
+
 }
 
 signed main() {

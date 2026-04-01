@@ -8,14 +8,42 @@ using namespace std;
 // #define MOD 1000000007
 // #define MOD 998244353
 
+vector<int> a;
+
+int sz(int n) {
+
+    int ans = 1;
+
+    while(n > 0) {
+        ans *= 10;
+        n /= 10;
+    }
+
+    return ans;
+
+}
+
+void add(int px) {
+
+    if(px > 1e9) return;
+
+    a.push_back(px);
+
+    for(int i = 1; i <= (1<<30); i *= 2) {
+        add(px*sz(i)+i);
+    }
+
+}
+
 void solve() {
 
-    array<int, 3> a;
-    cin >> a[0] >> a[1] >> a[2];
+    int n; cin >> n;
 
+    add(0);
     sort(all(a));
+    unique(all(a));
 
-    cout << (a[0]^a[1]^a[2])-a[1] << '\n';
+    cout << a[n] << '\n';
     
 }
 
@@ -25,7 +53,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

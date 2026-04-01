@@ -10,12 +10,12 @@ using namespace std;
 
 void solve() {
 
-    array<int, 3> a;
-    cin >> a[0] >> a[1] >> a[2];
+    string s; cin >> s;
 
-    sort(all(a));
+    if(s.length()%5 == 0) cout << "Yes";
+    else cout << "No";
 
-    cout << (a[0]^a[1]^a[2])-a[1] << '\n';
+    cout << '\n';
     
 }
 
@@ -25,7 +25,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

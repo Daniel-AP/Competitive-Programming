@@ -39,32 +39,32 @@ bool isPrime(int n) {
 
 }
 
-vector<int> primeFactors(int n) {
+map<int, int> primeFactors(int n) {
 
-    vector<int> factors;
+    map<int, int> factors;
 
     while(n%2 == 0) {
-        factors.push_back(2);
+        factors[2]++;
         n /= 2;
     }
 
     while(n%3 == 0) {
-        factors.push_back(3);
+        factors[3]++;
         n /= 3;
     }
 
-    for(int i = 5; i < (int)sqrt(n)+1; i += 6) {
+    for(int i = 5; i*i <= n; i += 6) {
         while(n%i == 0) {
-            factors.push_back(i);
+            factors[i]++;
             n /= i;
         }
         while(n%(i+2) == 0) {
-            factors.push_back(i+2);
+            factors[i+2]++;
             n /= (i+2);
         }
     }
 
-    if(n != 1) factors.push_back(n);
+    if(n != 1) factors[n]++;
 
     return factors;
 

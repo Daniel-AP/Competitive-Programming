@@ -10,12 +10,15 @@ using namespace std;
 
 void solve() {
 
-    array<int, 3> a;
-    cin >> a[0] >> a[1] >> a[2];
+    int c, f, b, s; cin >> c >> f >> b >> s;
 
-    sort(all(a));
+    int turns = 1;
+    turns *= 12/gcd(turns*f, 12);
+    turns *= 12/gcd(turns*b, 12);
 
-    cout << (a[0]^a[1]^a[2])-a[1] << '\n';
+    int ans = ((12*s+c-1)/c+turns-1)/turns*turns;
+    
+    cout << ans << '\n';
     
 }
 

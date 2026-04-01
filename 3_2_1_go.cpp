@@ -10,13 +10,13 @@ using namespace std;
 
 void solve() {
 
-    array<int, 3> a;
-    cin >> a[0] >> a[1] >> a[2];
+    int n; cin >> n;
 
-    sort(all(a));
+    for(int i = n; i >= 1; i--) {
+        if(i == 1) cout << i;
+        else cout << i << ',';
+    }
 
-    cout << (a[0]^a[1]^a[2])-a[1] << '\n';
-    
 }
 
 signed main() {
@@ -25,7 +25,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

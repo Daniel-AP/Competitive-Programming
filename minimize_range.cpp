@@ -10,12 +10,22 @@ using namespace std;
 
 void solve() {
 
-    array<int, 3> a;
-    cin >> a[0] >> a[1] >> a[2];
+    int n, k; cin >> n >> k;
+
+    vector<int> a(n);
+
+    for(int i = 0; i < n; i++) cin >> a[i];
+    for(int i = 0; i < n; i++) a[i] %= k;
 
     sort(all(a));
 
-    cout << (a[0]^a[1]^a[2])-a[1] << '\n';
+    int ans = *max_element(all(a))-*min_element(all(a));
+
+    for(int i = 0; i+1 < n; i++) {
+        ans = min(ans, max(a[i]-a[0], (a[i]+k)-a[i+1]));
+    }
+
+    cout << ans << '\n';
     
 }
 
@@ -25,7 +35,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

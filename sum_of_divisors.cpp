@@ -5,17 +5,30 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 #define INF (1LL<<60)
 
-// #define MOD 1000000007
+#define MOD 1000000007
 // #define MOD 998244353
+
+int binpow(int a, int b) {
+
+    a %= MOD;
+
+    int ans = 1;
+
+    while(b) {
+        if(b%2) ans = (ans*a)%MOD;
+        a = (a*a)%MOD;
+        b /= 2;
+    }
+    
+    return ans;
+
+}
 
 void solve() {
 
-    array<int, 3> a;
-    cin >> a[0] >> a[1] >> a[2];
+    int n; cin >> n;
 
-    sort(all(a));
-
-    cout << (a[0]^a[1]^a[2])-a[1] << '\n';
+    
     
 }
 
@@ -25,7 +38,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

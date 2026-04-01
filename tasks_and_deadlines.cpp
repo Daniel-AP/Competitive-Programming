@@ -10,13 +10,25 @@ using namespace std;
 
 void solve() {
 
-    array<int, 3> a;
-    cin >> a[0] >> a[1] >> a[2];
+    int n; cin >> n;
 
-    sort(all(a));
+    vector<pair<int, int>> t(n);
 
-    cout << (a[0]^a[1]^a[2])-a[1] << '\n';
-    
+    for(int i = 0; i < n; i++) {
+        cin >> t[i].first >> t[i].second;
+    }
+
+    sort(all(t));
+
+    int cur = 0, ans = 0;
+
+    for(int i = 0; i < n; i++) {
+        cur += t[i].first;
+        ans += t[i].second-cur;
+    }
+
+    cout << ans << '\n';
+
 }
 
 signed main() {
@@ -25,7 +37,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

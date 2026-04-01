@@ -10,12 +10,19 @@ using namespace std;
 
 void solve() {
 
-    array<int, 3> a;
-    cin >> a[0] >> a[1] >> a[2];
+    int l, g; cin >> l >> g;
+    int ans = 0;
 
-    sort(all(a));
+    for(int i = 0; i < g; i++) {
+        int p, d; cin >> p >> d;
+        if(d == 0) {
+            ans = max(ans, p);
+        } else {
+            ans = max(ans, l-p);
+        }
+    }
 
-    cout << (a[0]^a[1]^a[2])-a[1] << '\n';
+    cout << ans << '\n';
     
 }
 
@@ -25,7 +32,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

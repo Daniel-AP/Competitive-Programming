@@ -10,12 +10,16 @@ using namespace std;
 
 void solve() {
 
-    array<int, 3> a;
-    cin >> a[0] >> a[1] >> a[2];
+    int n; cin >> n;
 
-    sort(all(a));
+    vector<int> p(n);
+    for(int i = 0; i < n; i++) cin >> p[i];
 
-    cout << (a[0]^a[1]^a[2])-a[1] << '\n';
+    if(n == 1) cout << 1 << '\n';
+    else {
+        for(int i = 0; i < n; i++) cout << 2 << ' ';
+        cout << '\n';
+    }
     
 }
 

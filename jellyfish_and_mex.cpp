@@ -10,12 +10,7 @@ using namespace std;
 
 void solve() {
 
-    array<int, 3> a;
-    cin >> a[0] >> a[1] >> a[2];
-
-    sort(all(a));
-
-    cout << (a[0]^a[1]^a[2])-a[1] << '\n';
+    
     
 }
 
