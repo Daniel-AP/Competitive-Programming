@@ -1,25 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int long long
+#define int unsigned long long
 #define all(x) (x).begin(), (x).end()
 #define INF (1LL<<60)
 
-#define MOD 1000000007
+// #define MOD 1000000007
 // #define MOD 998244353
+
+int binpow(int a, int b) {
+    int ans = 1;
+    while(b) {
+        if(b%2) ans *= a;
+        a *= a;
+        b /= 2;
+    }
+    return ans;
+}
 
 void solve() {
 
     int n; cin >> n;
-    int l = 1, ans = 0;
+    int ans = 4*2*3*binpow(4, n-3);
 
-    while(l <= n) {
-        int r = n/(n/l);
-        ans = (ans+((n/l)%MOD)*((r-l+1)%MOD)%MOD*((l+r)%MOD)%MOD*500000004)%MOD;
-        l = r+1;
-    }
+    if(n > 3) ans += 4*3*3*binpow(4, n-4)*(n-3);
 
-    cout << ans << '\n';
+    cout << ans;
     
 }
 
