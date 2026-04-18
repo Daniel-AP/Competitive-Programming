@@ -10,20 +10,9 @@ using namespace std;
 
 void solve() {
 
-    int n; cin >> n;
+    int x; cin >> x;
 
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-
-    vector<vector<int>> divs(n+1);
-
-    for(int i = 1; i <= n-1; i++) {
-        for(int j = i; j <= n-1; j += i) {
-            divs[j].push_back(i);
-        }
-    }
-
-    
+    cout << 67 << '\n';
     
 }
 

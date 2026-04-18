@@ -10,7 +10,31 @@ using namespace std;
 
 void solve() {
 
-    
+    int n; cin >> n;
+
+    map<int, int> cnt;
+
+    for(int i = 0; i < n; i++) {
+        int x; cin >> x;
+        cnt[x]++;
+    }
+
+    int mex = 0;
+    while(cnt[mex]) mex++;
+
+    if(mex == 0) return void(cout << 0 << '\n');
+
+    vector<int> dp(mex);
+
+    for(int i = 0; i < mex; i++) dp[i] = mex*(cnt[i]-1)+i;
+
+    for(int i = mex-1; i >= 0; i--) {
+        for(int j = i+1; j < mex; j++) {
+            dp[i] = min(dp[i], dp[j]+j*(cnt[i]-1)+i);
+        }
+    }
+
+    cout << dp[0] << '\n';
     
 }
 

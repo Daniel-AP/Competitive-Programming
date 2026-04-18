@@ -12,18 +12,17 @@ void solve() {
 
     int n; cin >> n;
 
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
+    vector<int> ans(3*n);
 
-    vector<vector<int>> divs(n+1);
+    int r = 3*n, l = n;
 
-    for(int i = 1; i <= n-1; i++) {
-        for(int j = i; j <= n-1; j += i) {
-            divs[j].push_back(i);
-        }
+    for(int i = 1; i <= 3*n; i++) {
+        if(i%3 == 1 || i%3 == 2) ans[i-1] = r--;
+        else ans[i-1] = l--;
     }
 
-    
+    for(int x: ans) cout << x << ' ';
+    cout << '\n';
     
 }
 

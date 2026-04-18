@@ -10,21 +10,24 @@ using namespace std;
 
 void solve() {
 
-    int n; cin >> n;
+    int h, w, q; cin >> h >> w >> q;
 
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
+    while(q--) {
+    
+        int op; cin >> op;
 
-    vector<vector<int>> divs(n+1);
-
-    for(int i = 1; i <= n-1; i++) {
-        for(int j = i; j <= n-1; j += i) {
-            divs[j].push_back(i);
+        if(op == 1) {
+            int r; cin >> r;
+            cout << r*w << '\n';
+            h -= r;
+        } else {
+            int c; cin >> c;
+            cout << c*h << '\n';
+            w -= c;
         }
+
     }
 
-    
-    
 }
 
 signed main() {
@@ -33,7 +36,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

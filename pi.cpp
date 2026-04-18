@@ -10,20 +10,11 @@ using namespace std;
 
 void solve() {
 
-    int n; cin >> n;
+    double d; cin >> d;
+    double r = d/2;
+    double pi = 3.141592653589793;
 
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-
-    vector<vector<int>> divs(n+1);
-
-    for(int i = 1; i <= n-1; i++) {
-        for(int j = i; j <= n-1; j += i) {
-            divs[j].push_back(i);
-        }
-    }
-
-    
+    cout << fixed << setprecision(9) << pi*r*r << '\n';
     
 }
 
@@ -33,7 +24,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

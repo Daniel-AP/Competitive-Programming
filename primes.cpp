@@ -112,7 +112,7 @@ map<int, int> primeFactors(int n) {
 
 }
 
-vector<int> primes;
+vector<int> primes{2};
 bitset<M> s;
 
 void sieve() {

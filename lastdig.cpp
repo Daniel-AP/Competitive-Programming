@@ -7,23 +7,29 @@ using namespace std;
 
 // #define MOD 1000000007
 // #define MOD 998244353
+#define MOD 10
+
+int binpow(int a, int b) {
+
+    a %= MOD;
+
+    int ans = 1;
+
+    while(b) {
+        if(b%2) ans = (ans*a)%MOD;
+        a = (a*a)%MOD;
+        b /= 2;
+    }
+
+    return ans;
+    
+}
 
 void solve() {
 
-    int n; cin >> n;
+    int a, b; cin >> a >> b;
 
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-
-    vector<vector<int>> divs(n+1);
-
-    for(int i = 1; i <= n-1; i++) {
-        for(int j = i; j <= n-1; j += i) {
-            divs[j].push_back(i);
-        }
-    }
-
-    
+    cout << binpow(a, b) << '\n';
     
 }
 

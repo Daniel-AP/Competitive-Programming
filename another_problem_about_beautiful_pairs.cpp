@@ -15,15 +15,18 @@ void solve() {
     vector<int> a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
 
-    vector<vector<int>> divs(n+1);
+    int ans = 0;
 
-    for(int i = 1; i <= n-1; i++) {
-        for(int j = i; j <= n-1; j += i) {
-            divs[j].push_back(i);
+    for(int i = 0; i < n; i++) {
+        for(int j = i+a[i]; (j-i)/a[i] <= a[i] && j < n; j += a[i]) {
+            if(a[i]*a[j] == j-i) ans++;
+        }
+        for(int j = i-a[i]; (-(j-i))/a[i] < a[i] && j >= 0; j -= a[i]) {
+            if(a[i]*a[j] == i-j) ans++;
         }
     }
 
-    
+    cout << ans << '\n';
     
 }
 

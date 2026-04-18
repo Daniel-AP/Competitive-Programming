@@ -10,20 +10,23 @@ using namespace std;
 
 void solve() {
 
-    int n; cin >> n;
+    int n, m; cin >> n >> m;
 
-    vector<int> a(n);
+    vector<int> a(n), b(m);
+
     for(int i = 0; i < n; i++) cin >> a[i];
+    for(int j = 0; j < m; j++) cin >> b[j];
 
-    vector<vector<int>> divs(n+1);
+    sort(all(a));
 
-    for(int i = 1; i <= n-1; i++) {
-        for(int j = i; j <= n-1; j += i) {
-            divs[j].push_back(i);
-        }
+    int g = 0;
+    for(int i = 0; i < n-1; i++) g = gcd(g, a[n-1]-a[i]);
+
+    for(int j = 0; j < m; j++) {
+        cout << gcd(a[n-1]+b[j], g) << ' ';
     }
 
-    
+    cout << '\n';
     
 }
 
@@ -33,7 +36,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 

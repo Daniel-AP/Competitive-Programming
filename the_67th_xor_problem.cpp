@@ -15,16 +15,17 @@ void solve() {
     vector<int> a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
 
-    vector<vector<int>> divs(n+1);
+    int ans = 0;
 
-    for(int i = 1; i <= n-1; i++) {
-        for(int j = i; j <= n-1; j += i) {
-            divs[j].push_back(i);
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            if(i == j) continue;
+            ans = max(ans, a[i]^a[j]);
         }
     }
+    
+    cout << ans << '\n';
 
-    
-    
 }
 
 signed main() {
