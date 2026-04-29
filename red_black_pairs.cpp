@@ -8,34 +8,21 @@ using namespace std;
 // #define MOD 1000000007
 // #define MOD 998244353
 
-int comb(int n, int r) {
-
-    if(n < r) return 0;
-    if(n == r || r == 0) return 1;
-
-    r = min(r, n-r);
-
-    int ans = 1;
-    for(int i = 0; i < r; i++) {
-        ans = (ans*(n-i));
-        ans = (ans/(i+1));
-    }
-
-    return ans;
-
-}
-
 void solve() {
 
     int n; cin >> n;
-    int ans = 1;
+    string s1, s2; cin >> s1 >> s2;
 
-    while(n > 0) {
-        ans *= comb(n%10+3-1, 3-1);
-        n /= 10;
+    vector<int> dp(n+1);
+
+    for(int i = 1; i <= n; i++) {
+        dp[i] = dp[i-1]+(s1[i-1]!=s2[i-1]);
+        if(i > 1) {
+            dp[i] = min(dp[i], dp[i-2]+(s1[i-1]!=s1[i-2])+(s2[i-1]!=s2[i-2]));
+        }
     }
 
-    cout << ans << '\n';
+    cout << dp[n] << '\n';
     
 }
 

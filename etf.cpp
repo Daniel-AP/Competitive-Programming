@@ -8,34 +8,25 @@ using namespace std;
 // #define MOD 1000000007
 // #define MOD 998244353
 
-int comb(int n, int r) {
+const int N = 1000005;
+vector<int> phi(N+1);
 
-    if(n < r) return 0;
-    if(n == r || r == 0) return 1;
+void sieve() {
 
-    r = min(r, n-r);
-
-    int ans = 1;
-    for(int i = 0; i < r; i++) {
-        ans = (ans*(n-i));
-        ans = (ans/(i+1));
-    }
-
-    return ans;
+	for(int i = 1; i < N; i++) phi[i] = i;
+	for(int i = 2; i < N; i++) {
+		if(phi[i] == i) {
+			for(int j = i; j < N; j += i) { phi[j] -= phi[j] / i; }
+		}
+	}
 
 }
 
 void solve() {
 
     int n; cin >> n;
-    int ans = 1;
 
-    while(n > 0) {
-        ans *= comb(n%10+3-1, 3-1);
-        n /= 10;
-    }
-
-    cout << ans << '\n';
+    cout << phi[n] << '\n';
     
 }
 
@@ -46,6 +37,8 @@ signed main() {
 
     int t = 1;
     cin >> t;
+
+    sieve();
 
     while(t--) solve();
 

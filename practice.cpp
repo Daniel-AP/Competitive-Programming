@@ -10,20 +10,17 @@ using namespace std;
 
 void solve() {
 
-    int n; cin >> n;
+    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
 
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
+    // In IMPLEMENTATION, think about vars/limits, and when to change them
 
-    vector<vector<int>> divs(n+1);
+    // always check brute force solution and check its actual complexity
 
-    for(int i = 1; i <= n-1; i++) {
-        for(int j = i; j <= n-1; j += i) {
-            divs[j].push_back(i);
-        }
-    }
+    // find something that never/always changes after an operation
 
-    
+    // dont forget about binary search
+
+    // try fixing values on equations
     
 }
 
