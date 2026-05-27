@@ -8,28 +8,30 @@ using namespace std;
 // #define MOD 1000000007
 // #define MOD 998244353
 
+int r;
+
 struct Mono {
-    pair<int, int> v;
-    Mono(pair<int, int> v) : v(v) {}
-    static Mono zero() { return make_pair(INF, 0LL); }
+    array<int, 4> mat;
+    Mono(const array<int, 4>& m) : mat(m) {}
+    static Mono zero() { return array<int, 4>{1, 0, 0, 1}; }
 };
 
-Mono operator+(Mono a, Mono b) {
-    if(a.v.first < b.v.first) {
-        return a;
-    } else if(a.v.first == b.v.first) {
-        return make_pair(a.v.first, a.v.second+b.v.second);
-    } else {
-        return b;
-    }
+Mono operator+(const Mono& a, const Mono& b) {
+    return Mono({
+        (a.mat[0]*b.mat[0]+a.mat[1]*b.mat[2])%r,
+        (a.mat[0]*b.mat[1]+a.mat[1]*b.mat[3])%r,
+        (a.mat[2]*b.mat[0]+a.mat[3]*b.mat[2])%r,
+        (a.mat[2]*b.mat[1]+a.mat[3]*b.mat[3])%r
+    });
 }
 
 struct SegTree {
-    vector<Mono> s;
+
     int n;
+    vector<Mono> s;
 
     SegTree(int n) : n(n), s(2*n, Mono::zero()) {}
-    
+
     void update(int pos, Mono val) {
         for(s[pos += n] = val; pos >>= 1;) s[pos] = s[pos<<1]+s[pos<<1|1];
     }
@@ -47,24 +49,23 @@ struct SegTree {
 
 void solve() {
 
-    int n, m; cin >> n >> m;
+    int n, m; cin >> r >> n >> m;
 
     SegTree seg(n);
+
     for(int i = 0; i < n; i++) {
-        int x; cin >> x;
-        seg.update(i, make_pair(x, 1LL));
+        array<int, 4> mat;
+        for(int j = 0; j < 4; j++) cin >> mat[j];
+        seg.update(i, mat);
     }
 
     while(m--) {
-        int op; cin >> op;
-        if(op == 1) {
-            int i, v; cin >> i >> v;
-            seg.update(i, make_pair(v, 1LL));
-        } else {
-            int l, r; cin >> l >> r;
-            Mono ans = seg.query(l, r);
-            cout << ans.v.first << ' ' << ans.v.second << '\n';
-        }
+        int l, r; cin >> l >> r;
+        l--, r--;
+        array<int, 4> mat = seg.query(l, r+1).mat;
+        cout << mat[0] << ' ' << mat[1] << '\n';
+        cout << mat[2] << ' ' << mat[3] << '\n';
+        cout << '\n';
     }
     
 }

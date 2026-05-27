@@ -11,21 +11,22 @@ using namespace std;
 struct Mono {
     int v;
     Mono(int v) : v(v) {}
-    static Mono zero() { return {INF}; }
+    static Mono zero() { return {0LL}; }
 };
 
 Mono operator+(Mono a, Mono b) {
-    return {min(a.v, b.v)};
+    return {a.v+b.v};
 }
 
 struct SegTree {
-    vector<Mono> s;
-    int n;
 
-    SegTree(int n) : n(n), s(2*n, Mono::zero()) {}
+    int n;
+    vector<Mono> s;
+
+    SegTree(int x) : n(bit_ceil((unsigned int)x)), s(2*n, Mono::zero()) {}
 
     void update(int pos, Mono val) {
-        for(s[pos+=n] = val; pos >>= 1;) s[pos] = s[pos<<1]+s[pos<<1|1];
+        for(s[pos += n] = val; pos >>= 1;) s[pos] = s[pos<<1]+s[pos<<1|1];
     }
 
     Mono query(int l, int r) {
@@ -34,8 +35,25 @@ struct SegTree {
             if(l&1) lv = lv+s[l++];
             if(r&1) rv = s[--r]+rv;
         }
-
         return lv+rv;
+    }
+
+    int find(int k) {
+
+        int x = 1;
+
+        while(x < n) {
+            int l = x<<1, r = x<<1|1;
+            if(s[l].v > k) {
+                x = l;
+            } else {
+                x = r;
+                k -= s[l].v;
+            }
+        }
+
+        return x-n;
+
     }
 
 };
@@ -53,11 +71,11 @@ void solve() {
     while(m--) {
         int op; cin >> op;
         if(op == 1) {
-            int i, v; cin >> i >> v;
-            seg.update(i, v);
+            int i; cin >> i;
+            seg.update(i, 1-seg.query(i, i+1).v);
         } else {
-            int l, r; cin >> l >> r;
-            cout << seg.query(l, r).v << '\n';
+            int k; cin >> k;
+            cout << seg.find(k) << '\n';
         }
     }
     

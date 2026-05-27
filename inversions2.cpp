@@ -1,0 +1,96 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+#define all(x) (x).begin(), (x).end()
+#define INF (1LL<<60)
+
+// #define MOD 1000000007
+// #define MOD 998244353
+
+struct Mono {
+    int v;
+    Mono(int v) : v(v) {}
+    static Mono zero() { return 0LL; }
+};
+
+Mono operator+(Mono a, Mono b) {
+    return a.v+b.v;
+}
+
+struct SegTree {
+
+    int n;
+    vector<Mono> s;
+
+    SegTree(int x) : n(bit_ceil((unsigned int)x)), s(2*n, Mono::zero()) {}
+
+    void update(int pos, Mono val) {
+        for(s[pos += n] = val; pos >>= 1;) s[pos] = s[pos<<1]+s[pos<<1|1];
+    }
+
+    Mono query(int l, int r) {
+        Mono lv = Mono::zero(), rv = Mono::zero();
+        for(l += n, r += n; l < r; l >>= 1, r >>= 1) {
+            if(l&1) lv = lv+s[l++];
+            if(r&1) rv = s[--r]+rv;
+        }
+        return lv+rv;
+    }
+
+    int find(int k) {
+
+        int x = 1;
+
+        while(x < n) {
+            int l = x<<1, r = x<<1|1;
+            if(s[l].v > k) {
+                x = l;
+            } else {
+                x = r;
+                k -= s[l].v;
+            }
+        }
+
+        return x-n;
+
+    }
+
+};
+
+void solve() {
+
+    int n; cin >> n;
+
+    vector<int> inv(n);
+    for(int i = 0; i < n; i++) cin >> inv[i];
+
+    SegTree seg(n);
+    for(int i = 1; i <= n; i++) seg.update(i-1, 1);
+
+    vector<int> ans(n);
+    ans[n-1] = n-inv[n-1];
+    seg.update(ans[n-1]-1, 0);
+
+    for(int i = n-2; i >= 0; i--) {
+        ans[i] = seg.find(i-inv[i])+1;
+        seg.update(ans[i]-1, 0);
+    }
+
+    for(int x: ans) cout << x << ' ';
+    cout << '\n';
+    
+}
+
+signed main() {
+
+    ios_base::sync_with_stdio(false);
+    cin.tie(0); cout.tie(0);
+
+    int t = 1;
+
+    while(t--) solve();
+
+    return 0;
+
+}

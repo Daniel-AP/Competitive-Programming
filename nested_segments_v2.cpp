@@ -11,21 +11,22 @@ using namespace std;
 struct Mono {
     int v;
     Mono(int v) : v(v) {}
-    static Mono zero() { return {INF}; }
+    static Mono zero() { return 0LL; }
 };
 
 Mono operator+(Mono a, Mono b) {
-    return {min(a.v, b.v)};
+    return a.v+b.v;
 }
 
 struct SegTree {
-    vector<Mono> s;
+
     int n;
+    vector<Mono> s;
 
     SegTree(int n) : n(n), s(2*n, Mono::zero()) {}
 
     void update(int pos, Mono val) {
-        for(s[pos+=n] = val; pos >>= 1;) s[pos] = s[pos<<1]+s[pos<<1|1];
+        for(s[pos += n] = val; pos >>= 1;) s[pos] = s[pos<<1]+s[pos<<1|1];
     }
 
     Mono query(int l, int r) {
@@ -34,7 +35,6 @@ struct SegTree {
             if(l&1) lv = lv+s[l++];
             if(r&1) rv = s[--r]+rv;
         }
-
         return lv+rv;
     }
 
@@ -42,24 +42,29 @@ struct SegTree {
 
 void solve() {
 
-    int n, m; cin >> n >> m;
+    int n; cin >> n;
 
-    SegTree seg(n);
-    for(int i = 0; i < n; i++) {
+    vector<array<int, 3>> a(n);
+    for(int i = 0; i < n; i++) a[i] = {-1, -1, i+1};
+
+    for(int i = 0; i < 2*n; i++) {
         int x; cin >> x;
-        seg.update(i, x);
+        if(a[x-1][0] == -1) a[x-1][0] = i;
+        else a[x-1][1] = i;
     }
 
-    while(m--) {
-        int op; cin >> op;
-        if(op == 1) {
-            int i, v; cin >> i >> v;
-            seg.update(i, v);
-        } else {
-            int l, r; cin >> l >> r;
-            cout << seg.query(l, r).v << '\n';
-        }
+    sort(all(a));
+
+    SegTree seg(2*n);
+    vector<int> ans(n);
+
+    for(int i = n-1; i >= 0; i--) {
+        ans[a[i][2]-1] = seg.query(0, a[i][1]).v;
+        seg.update(a[i][1], 1);
     }
+
+    for(int x: ans) cout << x << ' ';
+    cout << '\n';
     
 }
 

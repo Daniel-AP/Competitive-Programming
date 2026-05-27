@@ -9,23 +9,24 @@ using namespace std;
 // #define MOD 998244353
 
 struct Mono {
-    int v;
-    Mono(int v) : v(v) {}
-    static Mono zero() { return {INF}; }
+    bitset<40> bs;
+    Mono(const bitset<40>& bs) : bs(bs) {}
+    static Mono zero() { return bitset<40>{}; }
 };
 
-Mono operator+(Mono a, Mono b) {
-    return {min(a.v, b.v)};
+Mono operator+(const Mono& a, const Mono& b) {
+    return { a.bs|b.bs };
 }
 
 struct SegTree {
-    vector<Mono> s;
+
     int n;
+    vector<Mono> s;
 
     SegTree(int n) : n(n), s(2*n, Mono::zero()) {}
 
-    void update(int pos, Mono val) {
-        for(s[pos+=n] = val; pos >>= 1;) s[pos] = s[pos<<1]+s[pos<<1|1];
+    void update(int pos, const Mono& val) {
+        for(s[pos += n] = val; pos >>= 1;) s[pos] = s[pos<<1]+s[pos<<1|1];
     }
 
     Mono query(int l, int r) {
@@ -34,7 +35,6 @@ struct SegTree {
             if(l&1) lv = lv+s[l++];
             if(r&1) rv = s[--r]+rv;
         }
-
         return lv+rv;
     }
 
@@ -42,22 +42,30 @@ struct SegTree {
 
 void solve() {
 
-    int n, m; cin >> n >> m;
+    int n, q; cin >> n >> q;
 
     SegTree seg(n);
+
     for(int i = 0; i < n; i++) {
         int x; cin >> x;
-        seg.update(i, x);
+        x--;
+        bitset<40> bs{};
+        bs.set(x);
+        seg.update(i, bs);
     }
 
-    while(m--) {
+    while(q--) {
         int op; cin >> op;
         if(op == 1) {
-            int i, v; cin >> i >> v;
-            seg.update(i, v);
-        } else {
             int l, r; cin >> l >> r;
-            cout << seg.query(l, r).v << '\n';
+            l--;
+            cout << seg.query(l, r).bs.count() << '\n';
+        } else {
+            int i, x; cin >> i >> x;
+            i--, x--;
+            bitset<40> bs{};
+            bs.set(x);
+            seg.update(i, bs);
         }
     }
     
