@@ -9,11 +9,13 @@ using namespace std;
 // #define MOD 998244353
 
 struct DSU {
-    vector<int> p, r;
+    vector<int> p, sz;
+    vector<vector<int>> mks;
     int n;
 
-    DSU(int n) : n(n), p(n), r(n) {
+    DSU(int n) : n(n), p(n), sz(n, 1), mks(n) {
         iota(all(p), 0);
+        for(int i = 0; i < n; i++) mks[i].push_back(i);
     }
 
     int find(int a) {
@@ -23,9 +25,11 @@ struct DSU {
     bool join(int a, int b) {
         a = find(a), b = find(b);
         if(a == b) return 0;
-        if(r[a] < r[b]) swap(a, b);
+        if(sz[a] < sz[b]) swap(a, b);
         p[b] = a;
-        if(r[a] == r[b]) r[a]++;
+        sz[a] += sz[b];
+        for(int mk: mks[b]) mks[a].push_back(mk);
+        mks[b].clear();
         return 1;
     }
 };
@@ -34,36 +38,67 @@ void solve() {
 
     int n, m; cin >> n >> m;
 
-    vector<pair<int, int>> hands(n+1);
+    vector<array<int, 2>> hm(n);
 
-    for(int i = 1; i <= n; i++) {
-        int l, r; cin >> l >> r;
-        hands[i] = {l, r};
+    for(int i = 0; i < n; i++) {
+        cin >> hm[i][0] >> hm[i][1];
     }
 
-    vector<pair<int, int>> rel(m);
-    set<pair<int, int>> has;
+    for(int i = 0; i < n; i++) {
+        if(hm[i][0] != -1) hm[i][0]--;
+        if(hm[i][1] != -1) hm[i][1]--;
+    }
+
+    vector<array<int, 3>> hr(m);
 
     for(int i = 0; i < m; i++) {
-        int p, h; cin >> p >> h;
-        rel[i] = {p, h};
-        has.insert({ p, h });
+        cin >> hr[i][0] >> hr[i][1];
+        hr[i][0]--;
     }
 
-    DSU dsu(n+1);
-
-    for(int i = 1; i <= n; i++) {
-        if(has.find({ i, 1 }) == has.end() && hands[i].first != -1) dsu.join(i, hands[i].first);
-        if(has.find({ i, 2 }) == has.end() && hands[i].second != -1) dsu.join(i, hands[i].second);
+    for(int i = 0; i < m; i++) {
+        hr[i][2] = hm[hr[i][0]][hr[i][1]-1];
+        hm[hr[i][0]][hr[i][1]-1] = -1;
     }
 
-    vector<int> ans(n+1, INF);
+    vector<int> ans(n, -1);
+    DSU dsu(n);
+
+    for(int i = 0; i < n; i++) {
+        if(hm[i][0] != -1) dsu.join(i, hm[i][0]);
+        if(hm[i][1] != -1) dsu.join(i, hm[i][1]);
+    }
 
     for(int i = m-1; i >= 0; i--) {
+
+        int rhr1 = dsu.find(hr[i][0]);
+        int rhr2 = dsu.find(hr[i][2]);
         
+        bool conn1 = (rhr1==dsu.find(0));
+        bool conn2 = (rhr2==dsu.find(0));
+        
+        if(!(conn1^conn2)) {
+            dsu.join(hr[i][0], hr[i][2]);
+            continue;
+        }
+
+        if(!conn1) {
+            for(int mk: dsu.mks[rhr1]) {
+                ans[mk] = i;
+            }
+        }
+
+        if(!conn2) {
+            for(int mk: dsu.mks[rhr2]) {
+                ans[mk] = i;
+            }
+        }
+
+        dsu.join(hr[i][0], hr[i][2]);
+
     }
 
-
+    for(int x: ans) cout << x << '\n';
     
 }
 

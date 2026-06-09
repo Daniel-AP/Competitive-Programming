@@ -20,11 +20,11 @@ Mono operator+(Mono a, Mono b) {
     return Mono((a.v*b.v)%m);
 }
 
-struct Tree {
+struct SegTree {
 	vector<Mono> s;
 	int n;
 
-	Tree(int n) : n(n), s(2*n, Mono::zero()) {}
+	SegTree(int n) : n(n), s(2*n, Mono::zero()) {}
 
 	void update(int pos, Mono val) {
 		for(s[pos += n] = val; pos >>= 1;) s[pos] = s[pos<<1]+s[pos<<1|1];
@@ -50,7 +50,7 @@ void solve() {
 
     string com; cin >> com;
 
-    Tree st(n);
+    SegTree st(n);
     for(int i = 0; i < n; i++) st.update(i, Mono(a[i]));
 
     int l = 0, r = n;

@@ -9,7 +9,7 @@ using namespace std;
 // #define MOD 998244353
 
 vector<int> pfun(const string& s) {
-    int n = (int)s.length(), j = 0;
+    int n = (int)s.size(), j = 0;
     vector<int> pi(n);
 
     for(int i = 1; i < n; i++) {
@@ -23,25 +23,12 @@ vector<int> pfun(const string& s) {
 
 void solve() {
 
-    string s; cin >> s;
-	vector<int> pi = pfun(s);
+    string s, p; cin >> s >> p;
+    string sp = p+"#"+s;
 
-	int n = s.length();
+    vector<int> pi = pfun(sp);
 
-	vector<int> cnt(n+1);
-
-	for(int i = 0; i < n; i++) cnt[pi[i]]++;
-	for(int i = n-1; i > 0; i--) cnt[pi[i-1]] += cnt[i];
-	for(int i = 0; i <= n; i++) cnt[i]++;
-
-	int j = pi[n-1];
-
-	while(j > 0) {
-		if(cnt[j] > 2) return void(cout << s.substr(0, j) << '\n');
-		j = pi[j-1];
-	}
-
-	cout << "Just a legend" << '\n';
+    cout << count(all(pi), p.length()) << '\n';
     
 }
 

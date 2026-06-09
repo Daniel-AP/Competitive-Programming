@@ -21,19 +21,28 @@ vector<int> pfun(const string& s) {
     return pi;
 }
 
+vector<int> match(const string& s, const string& pat) {
+	vector<int> p = pfun(pat + '\0' + s), res;
+	for (int i = (int)p.size() - (int)s.size(); i <= (int)p.size(); i++) {
+		if (p[i] == (int)pat.size()) res.push_back(i - 2 * (int)pat.size());
+	}
+	return res;
+}
+
 void solve() {
 
-    string s; cin >> s;
-    int n = s.length();
-    vector<int> pi = pfun(s);
+    string s, p; cin >> s >> p;
+    vector<int> matches = match(s, p);
 
-    int k = n-pi[n-1];
-    
-    if(n%k == 0) cout << k;
-    else cout << n;
+    if(matches.empty()) cout << "Not Found" << '\n';
+    else {
+        cout << matches.size() << '\n';
+        for(int x: matches) cout << x+1 << ' ';
+        cout << '\n';
+    }
 
     cout << '\n';
-
+    
 }
 
 signed main() {
@@ -44,10 +53,7 @@ signed main() {
     int t = 1;
     cin >> t;
 
-    while(t--) {
-        solve();
-        if(t > 0) cout << '\n';
-    }
+    while(t--) solve();
 
     return 0;
 
