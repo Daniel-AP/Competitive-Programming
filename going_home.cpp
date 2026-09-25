@@ -10,17 +10,62 @@ using namespace std;
 
 void solve() {
 
-    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
+    int n; cin >> n;
 
-    // In IMPLEMENTATION, think about vars/limits, and when to change them
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
 
-    // always check brute force solution and check its actual complexity
+    map<int, vector<int>> cnt;
+    for(int i = 0; i < n; i++) cnt[a[i]].push_back(i+1);
 
-    // find something that never/always changes after an operation
+    vector<int> c;
 
-    // dont forget about binary search
+    for(auto& [k, v]: cnt) {
+        if(v.size() >= 2) c.push_back(k);
+    }
 
-    // try fixing values on equations
+    if(c.size() == 1) {
+        int v = 2*c[0];
+        map<int, int> seen;
+        for(int i = 0; i < n; i++) {
+            if(i+1 == cnt[c[0]][0] || i+1 == cnt[c[0]][1]) continue;
+            if(a[i] > v) continue;
+            if(seen.find(v-a[i]) != seen.end()) {
+                cout << "YES" << '\n';
+                cout << cnt[c[0]][0] << ' ' << cnt[c[0]][1] << ' ' << i+1 << ' ' << seen[v-a[i]] << '\n';
+                return;
+            }
+            seen[a[i]] = i+1;
+        }
+    }
+
+    if(c.size() >= 2) {
+        cout << "YES" << '\n';
+        cout << cnt[c[0]][0] << ' ' << cnt[c[1]][0] << ' ' << cnt[c[0]][1] << ' ' << cnt[c[1]][1] << '\n';
+        return;
+    }
+
+    int m = 3200;
+
+    vector<int> ind(n);
+    iota(all(ind), 0);
+    sort(all(ind), [&](int i, int j) { return a[i] < a[j]; });
+    sort(all(a));
+
+    map<int, vector<pair<int, int>>> d;
+
+    for(int i = 0; i < min(n, m); i++) {
+        for(int j = i+1; j < min(n, m); j++) {
+            if(d.find(a[j]-a[i]) == d.end()) d[a[j]-a[i]].push_back({ i, j });
+            if(d[a[j]-a[i]][0].second < i) {
+                cout << "YES" << '\n';
+                cout << ind[d[a[j]-a[i]][0].first]+1 << ' ' << ind[j]+1 << ' ' << ind[d[a[j]-a[i]][0].second]+1 << ' ' << ind[i]+1 << '\n';
+                return;
+            }
+        }
+    }
+
+    cout << "NO" << '\n';
     
 }
 
@@ -30,7 +75,6 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
-    cin >> t;
 
     while(t--) solve();
 
