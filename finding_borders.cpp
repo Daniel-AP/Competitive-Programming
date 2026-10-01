@@ -26,19 +26,20 @@ void solve() {
     string s; cin >> s;
     int n = s.length();
 
-    vector<int> pi = pfun(s);
-    vector<int> ans;
-    
-    int j = pi[n-1];
+    auto pi = pfun(s);
 
-    while(j > 0) {
-        ans.push_back(j);
-        j = pi[j-1];
+    int j = n-1;
+    vector<int> ans;
+
+    while(pi[j] > 0) {
+        ans.push_back(pi[j]);
+        j = pi[j]-1;
     }
 
     reverse(all(ans));
 
     for(int x: ans) cout << x << ' ';
+    cout << '\n';
     
 }
 

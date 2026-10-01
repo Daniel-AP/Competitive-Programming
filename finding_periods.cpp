@@ -8,34 +8,19 @@ using namespace std;
 // #define MOD 1000000007
 // #define MOD 998244353
 
-vector<int> pfun(const string& s) {
-    int n = (int)s.size(), j = 0;
-    vector<int> pi(n);
-
-    for(int i = 1; i < n; i++) {
-        while(j > 0 && s[i] != s[j]) j = pi[j-1];
-        if(s[i] == s[j]) j++;
-        pi[i] = j;
-    }
-
-    return pi;
-}
-
 void solve() {
 
-    string s; cin >> s;
-    int n = s.length();
-    vector<int> pi = pfun(s);
+    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
 
-    int b = pi[n-1];
+    // In IMPLEMENTATION, think about vars/limits, and when to change them
 
-    while(b > 0) {
-        int p = n-b;
-        cout << p << ' ';
-        b = pi[b-1];
-    }
+    // always check brute force solution and check its actual complexity
 
-    cout << n << '\n';
+    // find something that never/always changes after an operation
+
+    // dont forget about binary search
+
+    // try fixing values on equations
     
 }
 
@@ -45,6 +30,7 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
+    cin >> t;
 
     while(t--) solve();
 

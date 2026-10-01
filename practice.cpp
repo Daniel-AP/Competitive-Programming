@@ -10,35 +10,17 @@ using namespace std;
 
 void solve() {
 
-    int n; cin >> n;
+    // In GREEDY, think about lower bounds and upper bounds, probably these can be achieved
 
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
+    // In IMPLEMENTATION, think about vars/limits, and when to change them
 
-    if(n == 1) return void(cout << (a[0] == 0 ? 1 : 0) << '\n');
+    // always check brute force solution and check its actual complexity
 
-    set<int> has;
-    for(int i = 0; i < n; i++) has.insert(a[i]);
+    // find something that never/always changes after an operation
 
-    vector<int> can;
-    for(int i = n; i >= 0; i--) if(!has.contains(i)) can.push_back(i);
+    // dont forget about binary search
 
-    vector<int> b(n, -1);
-
-    for(int i = 1; i < n; i++) {
-        if(a[i] != a[i-1]) {
-            b[i] = a[i-1];
-        }
-    }
-
-    for(int i = 0; i < n; i++) {
-        if(b[i] != -1) continue;
-        b[i] = can.back();
-        if(can.size() > 1) can.pop_back();
-    }
-
-    for(int x: b) cout << x << ' ';
-    cout << '\n';
+    // try fixing values on equations
     
 }
 
@@ -48,6 +30,7 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
+    cin >> t;
 
     while(t--) solve();
 
