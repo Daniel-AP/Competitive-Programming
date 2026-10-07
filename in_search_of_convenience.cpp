@@ -10,7 +10,9 @@ using namespace std;
 
 void solve() {
 
-    
+    int x, y, r; cin >> x >> y >> r;
+
+    cout << x+r << ' ' << y << '\n';
     
 }
 

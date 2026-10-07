@@ -98,12 +98,12 @@ struct Trie {
         int node = 0, ans = 0;
         for(int i = 32; i >= 0; i--) {
             int x = (s>>i)&1;
-            if(trie[node].next[x] != -1 && trie[trie[node].next[x]].cnt > 0) {
-                node = trie[node].next[x];
-            } else if(trie[node].next[x^1] != -1 && trie[trie[node].next[x^1]].cnt > 0) {
+            if(trie[node].next[x^1] != -1 && trie[trie[node].next[x^1]].cnt > 0) {
                 ans |= (1LL<<i);
                 node = trie[node].next[x^1];
-            } else break;
+            } else {
+                node = trie[node].next[x];
+            }
         }
         return ans;
     }
@@ -115,14 +115,16 @@ void solve() {
     int q; cin >> q;
 
     Trie trie;
+    trie.insert(0);
 
     while(q--) {
-        int op, x; cin >> op >> x;
-        if(op == 0 && !trie.contains(x)) {
+        char op; cin >> op;
+        int x; cin >> x;
+        if(op == '+') {
             trie.insert(x);
-        } else if(op == 1) {
+        } else if(op == '-') {
             trie.erase(x);
-        } else if(op == 2) {
+        } else {
             cout << trie.query(x) << '\n';
         }
     }

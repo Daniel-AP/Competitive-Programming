@@ -10,40 +10,95 @@ using namespace std;
 
 struct Trie {
     struct Node {
-        Node* nxt[26]{};
-        int cnt = 0;
-        bool end = false;
+        array<int, 26> next;
+        int cnt = 0;       // strings passing through this node
+        int end = 0;       // strings ending at this node
+
+        Node() {
+            next.fill(-1);
+        }
     };
 
-    Node* root = new Node();
+    vector<Node> trie;
+
+    Trie() {
+        trie.emplace_back();  // root
+    }
 
     void insert(const string& s) {
-        Node* cur = root;
-        for(char c: s) {
-            int x = c-'a';
-            if(!cur->nxt[x]) cur->nxt[x] = new Node();
-            cur = cur->nxt[x];
-            cur->cnt++;
+        int node = 0;
+        trie[node].cnt++;
+
+        for (char c : s) {
+            int x = c - 'a';
+
+            if (trie[node].next[x] == -1) {
+                trie[node].next[x] = trie.size();
+                trie.emplace_back();
+            }
+
+            node = trie[node].next[x];
+            trie[node].cnt++;
         }
-        cur->end = true;
+
+        trie[node].end++;
     }
 
     int count(const string& s) {
-        Node* cur = root;
-        for(char c: s) {
-            int x = c-'a';
-            if(!cur->nxt[x]) return 0;
-            cur = cur->nxt[x];
+        int node = 0;
+
+        for (char c : s) {
+            int x = c - 'a';
+
+            if (trie[node].next[x] == -1)
+                return 0;
+
+            node = trie[node].next[x];
         }
-        return cur->cnt;
+
+        return trie[node].end;
     }
 
+    bool contains(const string& s) {
+        return count(s) > 0;
+    }
+
+    int count_prefix(const string& s) {
+        int node = 0;
+
+        for (char c : s) {
+            int x = c - 'a';
+
+            if (trie[node].next[x] == -1)
+                return 0;
+
+            node = trie[node].next[x];
+        }
+
+        return trie[node].cnt;
+    }
+
+    bool erase(const string& s) {
+        if (!contains(s))
+            return false;
+
+        int node = 0;
+        trie[node].cnt--;
+
+        for (char c : s) {
+            node = trie[node].next[c - 'a'];
+            trie[node].cnt--;
+        }
+
+        trie[node].end--;
+        return true;
+    }
 };
 
 void solve() {
 
     int n, q; cin >> n >> q;
-
+    
     Trie trie;
 
     for(int i = 0; i < n; i++) {
@@ -53,7 +108,7 @@ void solve() {
 
     for(int i = 0; i < q; i++) {
         string s; cin >> s;
-        cout << trie.count(s) << '\n';
+        cout << trie.count_prefix(s) << '\n';
     }
     
 }

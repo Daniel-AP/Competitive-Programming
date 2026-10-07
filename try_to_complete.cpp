@@ -10,9 +10,12 @@ using namespace std;
 
 struct Trie {
     struct Node {
-        array<int, 2> next;
+        array<int, 26> next;
+        int par = -1;
         int cnt = 0;       // strings passing through this node
         int end = 0;       // strings ending at this node
+        string s;
+        int occ = 0;
 
         Node() {
             next.fill(-1);
@@ -25,30 +28,44 @@ struct Trie {
         trie.emplace_back();  // root
     }
 
-    void insert(int s) {
+    void insert(const string& s) {
         int node = 0;
         trie[node].cnt++;
 
-        for(int i = 32; i >= 0; i--) {
-            int x = (s>>i)&1;
+        for (char c : s) {
+            int x = c - 'a';
 
             if (trie[node].next[x] == -1) {
                 trie[node].next[x] = trie.size();
                 trie.emplace_back();
             }
 
+            trie[trie[node].next[x]].par = node;
             node = trie[node].next[x];
             trie[node].cnt++;
         }
 
         trie[node].end++;
+
+        int occ = trie[node].end;
+
+        for(int i = s.length()-1; i >= 0; i--) {
+            if(trie[node].occ < occ) {
+                trie[node].s = s;
+                trie[node].occ = occ;
+            } else if(trie[node].occ == occ) {
+                trie[node].s = min(trie[node].s, s);
+            }
+            node = trie[node].par;
+        }
+
     }
 
-    int count(int s) {
+    int count(const string& s) {
         int node = 0;
 
-        for(int i = 32; i >= 0; i--) {
-            int x = (s>>i)&1;
+        for (char c : s) {
+            int x = c - 'a';
 
             if (trie[node].next[x] == -1)
                 return 0;
@@ -59,15 +76,15 @@ struct Trie {
         return trie[node].end;
     }
 
-    bool contains(int s) {
+    bool contains(const string& s) {
         return count(s) > 0;
     }
 
-    int count_prefix(int s) {
+    int count_prefix(const string& s) {
         int node = 0;
 
-        for(int i = 32; i >= 0; i--) {
-            int x = (s>>i)&1;
+        for (char c : s) {
+            int x = c - 'a';
 
             if (trie[node].next[x] == -1)
                 return 0;
@@ -78,15 +95,15 @@ struct Trie {
         return trie[node].cnt;
     }
 
-    bool erase(int s) {
+    bool erase(const string& s) {
         if (!contains(s))
             return false;
 
         int node = 0;
         trie[node].cnt--;
 
-        for(int i = 32; i >= 0; i--) {
-            node = trie[node].next[(s>>i)&1];
+        for (char c : s) {
+            node = trie[node].next[c - 'a'];
             trie[node].cnt--;
         }
 
@@ -94,37 +111,39 @@ struct Trie {
         return true;
     }
 
-    int query(int s) {
-        int node = 0, ans = 0;
-        for(int i = 32; i >= 0; i--) {
-            int x = (s>>i)&1;
-            if(trie[node].next[x] != -1 && trie[trie[node].next[x]].cnt > 0) {
-                node = trie[node].next[x];
-            } else if(trie[node].next[x^1] != -1 && trie[trie[node].next[x^1]].cnt > 0) {
-                ans |= (1LL<<i);
-                node = trie[node].next[x^1];
-            } else break;
+    pair<string, int> query(const string& s) {
+        int node = 0;
+
+        for(char c: s) {
+            int x = c-'a';
+            if (trie[node].next[x] == -1)
+                return {"", -1};
+            node = trie[node].next[x];
         }
-        return ans;
+
+        return {trie[node].s, trie[node].occ};
     }
 
 };
 
 void solve() {
 
-    int q; cin >> q;
+    int n; cin >> n;
 
     Trie trie;
 
-    while(q--) {
-        int op, x; cin >> op >> x;
-        if(op == 0 && !trie.contains(x)) {
-            trie.insert(x);
-        } else if(op == 1) {
-            trie.erase(x);
-        } else if(op == 2) {
-            cout << trie.query(x) << '\n';
-        }
+    for(int i = 0; i < n; i++) {
+        string s; cin >> s;
+        trie.insert(s);
+    }
+
+    int q; cin >> q;
+
+    for(int i = 0; i < q; i++) {
+        string s; cin >> s;
+        auto [ss, occ] = trie.query(s);
+        if(occ == -1) cout << -1 << '\n';
+        else cout << ss << ' ' << occ << '\n';
     }
     
 }

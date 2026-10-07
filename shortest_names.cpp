@@ -10,7 +10,7 @@ using namespace std;
 
 struct Trie {
     struct Node {
-        array<int, 2> next;
+        array<int, 26> next;
         int cnt = 0;       // strings passing through this node
         int end = 0;       // strings ending at this node
 
@@ -25,12 +25,12 @@ struct Trie {
         trie.emplace_back();  // root
     }
 
-    void insert(int s) {
+    void insert(const string& s) {
         int node = 0;
         trie[node].cnt++;
 
-        for(int i = 32; i >= 0; i--) {
-            int x = (s>>i)&1;
+        for (char c : s) {
+            int x = c - 'a';
 
             if (trie[node].next[x] == -1) {
                 trie[node].next[x] = trie.size();
@@ -44,11 +44,11 @@ struct Trie {
         trie[node].end++;
     }
 
-    int count(int s) {
+    int count(const string& s) {
         int node = 0;
 
-        for(int i = 32; i >= 0; i--) {
-            int x = (s>>i)&1;
+        for (char c : s) {
+            int x = c - 'a';
 
             if (trie[node].next[x] == -1)
                 return 0;
@@ -59,15 +59,15 @@ struct Trie {
         return trie[node].end;
     }
 
-    bool contains(int s) {
+    bool contains(const string& s) {
         return count(s) > 0;
     }
 
-    int count_prefix(int s) {
+    int count_prefix(const string& s) {
         int node = 0;
 
-        for(int i = 32; i >= 0; i--) {
-            int x = (s>>i)&1;
+        for (char c : s) {
+            int x = c - 'a';
 
             if (trie[node].next[x] == -1)
                 return 0;
@@ -78,15 +78,15 @@ struct Trie {
         return trie[node].cnt;
     }
 
-    bool erase(int s) {
+    bool erase(const string& s) {
         if (!contains(s))
             return false;
 
         int node = 0;
         trie[node].cnt--;
 
-        for(int i = 32; i >= 0; i--) {
-            node = trie[node].next[(s>>i)&1];
+        for (char c : s) {
+            node = trie[node].next[c - 'a'];
             trie[node].cnt--;
         }
 
@@ -94,38 +94,39 @@ struct Trie {
         return true;
     }
 
-    int query(int s) {
-        int node = 0, ans = 0;
-        for(int i = 32; i >= 0; i--) {
-            int x = (s>>i)&1;
-            if(trie[node].next[x] != -1 && trie[trie[node].next[x]].cnt > 0) {
-                node = trie[node].next[x];
-            } else if(trie[node].next[x^1] != -1 && trie[trie[node].next[x^1]].cnt > 0) {
-                ans |= (1LL<<i);
-                node = trie[node].next[x^1];
-            } else break;
+    int query(const string& s) {
+
+        int node = 0, cnt = 0;
+
+        for(char c: s) {
+            int x = c-'a';
+            if(trie[node].cnt == 1) break;
+            cnt++;
+            node = trie[node].next[x];
         }
-        return ans;
+
+        return cnt;
+
     }
 
 };
 
 void solve() {
 
-    int q; cin >> q;
+    int n; cin >> n;
 
     Trie trie;
-
-    while(q--) {
-        int op, x; cin >> op >> x;
-        if(op == 0 && !trie.contains(x)) {
-            trie.insert(x);
-        } else if(op == 1) {
-            trie.erase(x);
-        } else if(op == 2) {
-            cout << trie.query(x) << '\n';
-        }
+    vector<string> a(n);
+    
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+        trie.insert(a[i]);
     }
+
+    int ans = 0;
+    for(int i = 0; i < n; i++) ans += trie.query(a[i]);
+
+    cout << ans << '\n';
     
 }
 
@@ -135,6 +136,7 @@ signed main() {
     cin.tie(0); cout.tie(0);
 
     int t = 1;
+    cin >> t;
 
     while(t--) solve();
 
